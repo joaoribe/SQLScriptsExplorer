@@ -1,0 +1,87 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
+             xmlns:Controls="clr-namespace:SQLScriptsExplorer.Addin.Controls" x:Class="SQLScriptsExplorer.Addin.Commands.ToolWindow.MainToolWindowControl"
+             Background="{DynamicResource {x:Static vsshell:VsBrushes.WindowKey}}"
+             Foreground="{DynamicResource {x:Static vsshell:VsBrushes.WindowTextKey}}"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300" 
+             x:Name="MyToolWindow">
+    <Grid Margin="0,0,0,0">
+
+        <DockPanel>
+            <StackPanel>
+                <ToolBarTray DockPanel.Dock="Top" IsLocked="True">
+                    <ToolBar Loaded="ToolBar_Loaded" BorderThickness="0">
+                        <Button Click="btnFormatSelection_Click" ToolTip="Format Selection">
+                            <StackPanel>
+                                <Image Source="../../Resources/Images/FormatScript.png" Width="16" />
+                            </StackPanel>
+                        </Button>
+
+                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+
+                        <Button Click="btnExpandAll_Click" ToolTip="Expand All">
+                            <StackPanel>
+                                <Image Source="../../Resources/Images/ExpandAll.png" Width="16" />
+                            </StackPanel>
+                        </Button>
+                        
+                        <Button Click="btnCollapseAll_Click" ToolTip="Collapse All">
+                            <StackPanel>
+                                <Image Source="../../Resources/Images/CollapseAll.png" Width="16" />
+                            </StackPanel>
+                        </Button>
+
+                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+
+                        <Button Click="btnRefresh_Click" ToolTip="Refresh">
+                            <StackPanel>
+                                <Image Source="../../Resources/Images/Refresh.png" Width="16"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Click="btnSettings_Click" ToolTip="Settings">
+                            <StackPanel>
+                                <Image Source="../../Resources/Images/Settings.png" Width="16"/>
+                            </StackPanel>
+                        </Button>
+                    </ToolBar>
+                </ToolBarTray>
+                <TextBox x:Name="txtSearch" Height="21" Padding="3,2,3,2" KeyUp="txtSearch_KeyUp" />
+                <TextBlock IsHitTestVisible="False" Text="Search SQL Scripts Explorer..." VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,-23,0,0" Padding="6,2,0,0" Foreground="DarkGray">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=txtSearch}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </StackPanel>
+        </DockPanel>
+
+        <Controls:FileExplorerTreeView x:Name="FileExplorerAll" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,48,0,0"/>
+        <Controls:FileExplorerTreeView x:Name="FileExplorerSearchResults" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,48,0,0" Visibility="Collapsed"
+                                       TreeNodeAdded="FileExplorerSearchResults_TreeNodeAdded" 
+                                       TreeNodeDeleted="FileExplorerSearchResults_TreeNodeDeleted"
+                                       TreeNodeRenamed="FileExplorerSearchResults_TreeNodeRenamed"/>
+
+        <StackPanel Orientation="Vertical" Margin="0,150,0,0">
+            <!--<StackPanel Orientation="Horizontal">-->
+            <!--</StackPanel>-->
+        </StackPanel>
+
+        <!-- Info on double click: https://stackoverflow.com/questions/4295897/wpf-double-click-treeviewitem-child-node -->
+
+
+
+    </Grid>
+
+
+</UserControl>
