@@ -1,5 +1,5 @@
 <h1>SQL Scripts Explorer</h1>
-<p>Microsoft SQL Server Management Studio 18 extension to open, create, edit, organize, search and share SQL Scripts.</p>
+<p>Microsoft SQL Server Management Studio 18 extension to open, create, edit, organize, search and share SQL Scripts. Its purpose is to allow quick access to scripts that are frequently used.</p>
 <h2>Contents</h2>
 <ul>
 	<li><a href="#getting-started">Getting Started</a>
