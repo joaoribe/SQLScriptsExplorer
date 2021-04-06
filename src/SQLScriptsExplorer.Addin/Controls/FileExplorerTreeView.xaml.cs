@@ -89,7 +89,10 @@ namespace SQLScriptsExplorer.Addin.Controls
                 currentTreeViewItem.DataContext as TreeNode : null;
 
             // In case changing focus to a different node while renaming file
-            ApplyRenaming();
+            if (currentTreeNode != null && isEditMode && currentTreeNode.Id != renamingNodeId)
+            {
+                txtRename_LostFocus(null, null);
+            }
         }
 
         private void TreeViewMain_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -333,12 +336,15 @@ namespace SQLScriptsExplorer.Addin.Controls
                     {
                         if (string.IsNullOrWhiteSpace(txtRename.Text))
                         {
-                            MessageBox.Show("Please enter a file name.");
-                            txtRename.Text = lblRename.Text = renamingNodeFileName;
-                            return;
+                            // TODO: Workaround for when clicking a button outside TreeView
+                            if (currentTreeViewItem != null && !currentTreeViewItem.DataContext.ToString().Equals("{DisconnectedItem}"))
+                            {
+                                MessageBox.Show("Please enter a file name.");
+                                txtRename.Text = lblRename.Text = renamingNodeFileName;
+                                return;
+                            }
                         }
-
-                        if (currentTreeViewItem != null && renamingNodeFileName != txtRename.Text)
+                        else if (currentTreeViewItem != null && renamingNodeFileName != txtRename.Text)
                         {
                             var renamingTreeNode = DataSourceDictionary[renamingNodeId];
 
@@ -401,14 +407,6 @@ namespace SQLScriptsExplorer.Addin.Controls
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void ApplyRenaming()
-        {
-            if (currentTreeNode != null && isEditMode && currentTreeNode.Id != renamingNodeId)
-            {
-                txtRename_LostFocus(null, null);
             }
         }
     }
