@@ -37,7 +37,7 @@
 <h2>Installation</h2>
 <ul>
 	<li>Close all instances of Microsoft SQL Server Management Studio 18</li>
-	<li>Download most recent <a href="/releases/latest">release</a></li>
+	<li>Download most recent <a href="https://github.com/joaoribe/SQLScriptsExplorer/releases/latest">release</a></li>
 	<li>Add release folder <i>SQLScriptsExplorer</i> to
 		<br/>
 		<code>C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Extensions</code>
