@@ -11,7 +11,7 @@
 	</li>
 	<li><a href="#features">Features</a>
 		<ul>
-			<li><a href="#manage-multiple-sql-scripts-repositories">Manage multiple SQL Scripts Repositories</a></li>
+			<li><a href="#manage-multiple-sql-scripts-repositories">Manage multiple SQL Scripts repositories</a></li>
 			<li><a href="#organize-sql-scripts-using-folders">Organize SQL Scripts using folders</a></li>
 			<li><a href="#open-create-and-edit-sql-script-files">Open, create and edit SQL Script files</a></li>
 			<li><a href="#search-sql-scripts-across-repositories">Search SQL Scripts across repositories</a></li>
@@ -54,7 +54,7 @@
 <!-- FEATURES -->
 <h1>Features</h1>
 
-<h2>Manage multiple SQL Scripts Repositories</h2>
+<h2>Manage multiple SQL Scripts repositories</h2>
 <p>Map local folders to store your own SQL Scripts or collaborate/share knowledge with your team by mapping shared SQL Scripts folders.</p>
 <img src="docs/images/MapFolders.png"/>
 
@@ -67,7 +67,7 @@
 <img src="docs/images/CreateAndEditFile.gif"/>
 
 <h2>Search SQL Scripts across repositories</h2>
-<p>Easily search SQL Scripts accross different mapped repositories.</p>
+<p>Easily search SQL Scripts across different mapped repositories.</p>
 <img src="docs/images/Search.gif"/>
 
 <h2>Format SQL Scripts</h2>
@@ -76,7 +76,7 @@
 
 <!-- CONTRIBUTING -->
 <h1>Contributing</h1>
-<p>Feel free to report an issue or suggest a feature. If you would like to introduce a functionality or fix an issue, please go ahead and create a pull request.</p>
+<p>Feel free to report an issue or suggest a feature. If you would like to introduce a functionality or fix an issue, please create a pull request.</p>
 
 <h2>Debugging</h2>
 <ul>
