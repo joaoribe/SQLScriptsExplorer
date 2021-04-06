@@ -27,9 +27,11 @@ namespace SQLScriptsExplorer.Addin.Controls
         public event EventHandler TreeNodeRenamed;
 
         private bool isEditMode = false;
-        private string previousFileName;
+        private string renamingNodeId;
+        private string renamingNodeFileName;
         private TextBlock lblRename;
         private TextBox txtRename;
+
         private TreeNode currentTreeNode;
         private TreeViewItem currentTreeViewItem;
 
@@ -87,6 +89,12 @@ namespace SQLScriptsExplorer.Addin.Controls
 
             currentTreeNode = currentTreeViewItem != null ?
                 currentTreeViewItem.DataContext as TreeNode : null;
+
+            // In case changing focus to a different node while renaming file
+            if (currentTreeNode != null && isEditMode && currentTreeNode.Id != renamingNodeId)
+            {
+                txtRename_LostFocus(sender, null);
+            }
         }
 
         private void TreeViewMain_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -176,7 +184,9 @@ namespace SQLScriptsExplorer.Addin.Controls
             txtRename.Focus();
 
             isEditMode = true;
-            previousFileName = txtRename.Text;
+
+            renamingNodeId = currentTreeNode.Id;
+            renamingNodeFileName = currentTreeNode.FileName;
         }
 
         private void mnuDelete_Click(object sender, RoutedEventArgs e)
@@ -309,7 +319,7 @@ namespace SQLScriptsExplorer.Addin.Controls
                 txtRename_LostFocus(sender, null);
             else if (e.Key == Key.Escape)
             {
-                txtRename.Text = previousFileName;
+                txtRename.Text = lblRename.Text = renamingNodeFileName;
                 txtRename_LostFocus(sender, null);
             }
         }
@@ -324,41 +334,56 @@ namespace SQLScriptsExplorer.Addin.Controls
                 {
                     txtRename.Text = txtRename.Text.Trim();
 
-                    if (isEditMode && currentTreeViewItem != null && previousFileName != txtRename.Text)
+                    if (isEditMode)
                     {
-                        var basePath = Path.GetDirectoryName(currentTreeNode.FileFullPath);
-                        var previousPath = Path.Combine(basePath, previousFileName);
-                        var newPath = Path.Combine(basePath, txtRename.Text);
-
-                        if (currentTreeNode.Type == TreeNodeType.File && File.Exists(previousPath))
+                        if (string.IsNullOrWhiteSpace(txtRename.Text))
                         {
-                            File.Move(previousPath, newPath);
-
-                            hasRenamed = true;
-                        }
-                        else if (currentTreeNode.Type == TreeNodeType.Folder && Directory.Exists(previousPath))
-                        {
-                            // Necessary to move to another temporary path before moving to the new path, as directory renaming is not case-sensitive
-                            // i.e. Renaming a folder from "Service" to "ServicE" would throw an exception using Directory.Move
-                            var directory = new DirectoryInfo(previousPath);
-                            directory.MoveTo(PathHelper.GetDirectoryTemporaryPath(previousPath));
-                            directory.MoveTo(newPath);
-
-                            hasRenamed = true;
+                            MessageBox.Show("Please enter a file name.");
+                            txtRename.Text = lblRename.Text = renamingNodeFileName;
+                            return;
                         }
 
-                        if (hasRenamed)
+                        if (currentTreeViewItem != null && renamingNodeFileName != txtRename.Text)
                         {
-                            currentTreeNode.FileName = txtRename.Text;
-                            currentTreeNode.FileFullPath = newPath;
+                            var renamingTreeNode = DataSourceDictionary[renamingNodeId];
 
-                            currentTreeNode.Parent.Children = currentTreeNode.Parent.Children.OrderBy(p => p.Type).ThenBy(p => p.FileName).ToList();
+                            var basePath = Path.GetDirectoryName(renamingTreeNode.FileFullPath);
+                            var previousPath = Path.Combine(basePath, renamingNodeFileName);
+                            var newPath = Path.Combine(basePath, txtRename.Text);
 
-                            currentTreeViewItem.IsSelected = true;
-
-                            if (TreeNodeRenamed != null)
+                            if (renamingTreeNode.Type == TreeNodeType.File && File.Exists(previousPath))
                             {
-                                TreeNodeRenamed(currentTreeNode, EventArgs.Empty);
+                                File.Move(previousPath, newPath);
+
+                                hasRenamed = true;
+                            }
+                            else if (renamingTreeNode.Type == TreeNodeType.Folder && Directory.Exists(previousPath))
+                            {
+                                // Necessary to move to another temporary path before moving to the new path, as directory renaming is not case-sensitive
+                                // i.e. Renaming a folder from "Service" to "ServicE" would throw an exception using Directory.Move
+                                var directory = new DirectoryInfo(previousPath);
+                                directory.MoveTo(PathHelper.GetDirectoryTemporaryPath(previousPath));
+                                directory.MoveTo(newPath);
+
+                                hasRenamed = true;
+                            }
+
+                            if (hasRenamed)
+                            {
+                                renamingTreeNode.FileName = lblRename.Text = txtRename.Text;
+                                renamingTreeNode.FileFullPath = newPath;
+
+                                renamingTreeNode.Parent.Children = renamingTreeNode.Parent.Children.OrderBy(p => p.Type).ThenBy(p => p.FileName).ToList();
+
+                                if (renamingNodeId == currentTreeNode.Id)
+                                {
+                                    currentTreeViewItem.IsSelected = true;
+                                }
+
+                                if (TreeNodeRenamed != null)
+                                {
+                                    TreeNodeRenamed(renamingTreeNode, EventArgs.Empty);
+                                }
                             }
                         }
                     }
@@ -368,6 +393,10 @@ namespace SQLScriptsExplorer.Addin.Controls
                     if (hasRenamed)
                     {
                         RefreshTreeView();
+                    }
+                    else
+                    {
+                        txtRename.Text = lblRename.Text = renamingNodeFileName;
                     }
 
                     lblRename.Visibility = Visibility.Visible;
