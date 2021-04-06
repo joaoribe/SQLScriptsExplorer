@@ -79,8 +79,6 @@ namespace SQLScriptsExplorer.Addin.Controls
 
                 }
             }
-
-            txtRename_LostFocus(sender, null);
         }
 
         private void TreeViewMain_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -91,10 +89,7 @@ namespace SQLScriptsExplorer.Addin.Controls
                 currentTreeViewItem.DataContext as TreeNode : null;
 
             // In case changing focus to a different node while renaming file
-            if (currentTreeNode != null && isEditMode && currentTreeNode.Id != renamingNodeId)
-            {
-                txtRename_LostFocus(sender, null);
-            }
+            ApplyRenaming();
         }
 
         private void TreeViewMain_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -406,6 +401,14 @@ namespace SQLScriptsExplorer.Addin.Controls
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void ApplyRenaming()
+        {
+            if (currentTreeNode != null && isEditMode && currentTreeNode.Id != renamingNodeId)
+            {
+                txtRename_LostFocus(null, null);
             }
         }
     }
