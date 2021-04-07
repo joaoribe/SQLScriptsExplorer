@@ -1,5 +1,5 @@
 <h1>SQL Scripts Explorer</h1>
-<p>Microsoft SQL Server Management Studio 18 extension to open, create, edit, organize, search and share SQL Scripts.</p>
+<p>Microsoft SQL Server Management Studio 18 extension to open, create, edit, organize, search and share SQL Scripts. Its purpose is to allow quick access to scripts that are frequently used.</p>
 <h2>Contents</h2>
 <ul>
 	<li><a href="#getting-started">Getting Started</a>
@@ -37,7 +37,7 @@
 <h2>Installation</h2>
 <ul>
 	<li>Close all instances of Microsoft SQL Server Management Studio 18</li>
-	<li>Download most recent <a href="/releases/latest">release</a></li>
+	<li>Download the most recent <a href="https://github.com/joaoribe/SQLScriptsExplorer/releases/latest">release</a></li>
 	<li>Add release folder <i>SQLScriptsExplorer</i> to
 		<br/>
 		<code>C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Extensions</code>
@@ -125,7 +125,7 @@
 		<ul>
 			<li>Navigate to <i>C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE</i></li>
 			<li>Find "Ssms.exe.config" file, open up a Notepad in Administrator Mode, and edit this file</li>
-			<li>You will then need to find an xml tag called <AppContextSwitchOverrides>, and APPEND (not replace) the following exactly:</li>
+			<li>You will then need to find an xml tag called &lt;AppContextSwitchOverrides&gt;, and APPEND (not replace) the following exactly:</li>
 			<ul>
 				<li>
 					;Switch.System.Windows.Interop.MouseInput.OptOutOfMoveToChromedWindowFix=true; Switch.System.Windows.Interop.MouseInput.DoNotOptOutOfMoveToChromedWindowFix=true
