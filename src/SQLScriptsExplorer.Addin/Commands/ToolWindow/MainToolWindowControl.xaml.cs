@@ -62,13 +62,14 @@ namespace SQLScriptsExplorer.Addin.Commands.ToolWindow
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
             var frmSettings = new frmSettings();
+            var frmSettingsResult = frmSettings.ShowDialog();
 
-            if (frmSettings.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            settingsRepository.Refresh();
+
+            if (frmSettingsResult == System.Windows.Forms.DialogResult.OK)
             {
                 RefreshTreeView();
             }
-
-            settingsRepository.Refresh();
         }
 
         private void btnCollapseAll_Click(object sender, RoutedEventArgs e)
