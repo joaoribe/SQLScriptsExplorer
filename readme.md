@@ -125,7 +125,7 @@
 		<ul>
 			<li>Navigate to <i>C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE</i></li>
 			<li>Find "Ssms.exe.config" file, open up a Notepad in Administrator Mode, and edit this file</li>
-			<li>You will then need to find an xml tag called <code><AppContextSwitchOverrides></code>, and APPEND (not replace) the following exactly:</li>
+			<li>You will then need to find an xml tag called &lt;AppContextSwitchOverrides&gt;, and APPEND (not replace) the following exactly:</li>
 			<ul>
 				<li>
 					;Switch.System.Windows.Interop.MouseInput.OptOutOfMoveToChromedWindowFix=true; Switch.System.Windows.Interop.MouseInput.DoNotOptOutOfMoveToChromedWindowFix=true
