@@ -84,19 +84,22 @@ namespace SQLScriptsExplorer.Addin.Controls
 
         private void TreeViewMain_ContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
-            ISettingsRepository settingsRepository = new SettingsRepository();
-            var fileContextMenu = TreeViewMain.Resources["FileContext"] as System.Windows.Controls.ContextMenu;
-
-            if (fileContextMenu != null)
+            if (currentTreeNode.Type == TreeNodeType.File)
             {
-                var executeMenuItem = fileContextMenu.Items[2] as MenuItem;
+                ISettingsRepository settingsRepository = new SettingsRepository();
+                var fileContextMenu = TreeViewMain.Resources["FileContext"] as System.Windows.Controls.ContextMenu;
 
-                if (executeMenuItem != null)
+                if (fileContextMenu != null)
                 {
-                    if (settingsRepository.ShowExecuteFileButton)
-                        executeMenuItem.Visibility = Visibility.Visible;
-                    else
-                        executeMenuItem.Visibility = Visibility.Collapsed;
+                    var executeMenuItem = fileContextMenu.Items[2] as MenuItem;
+
+                    if (executeMenuItem != null)
+                    {
+                        if (settingsRepository.ShowExecuteFileButton)
+                            executeMenuItem.Visibility = Visibility.Visible;
+                        else
+                            executeMenuItem.Visibility = Visibility.Collapsed;
+                    }
                 }
             }
         }
