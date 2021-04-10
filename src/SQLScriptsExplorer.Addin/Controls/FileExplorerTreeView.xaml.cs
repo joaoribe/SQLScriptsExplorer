@@ -180,8 +180,22 @@ namespace SQLScriptsExplorer.Addin.Controls
                 try
                 {
                     ISettingsRepository settingsRepository = new SettingsRepository();
+                    
+                    DocumentManager.OpenTemplate(treeNode.FileName, treeNode.FileFullPath);
+                    var messageBoxResult = MessageBoxResult.Yes;
 
-                    DocumentManager.ExecuteTemplate(treeNode.FileName, treeNode.FileFullPath, settingsRepository.ConfirmScriptExecution);
+                    if (settingsRepository.ConfirmScriptExecution)
+                    {
+                        messageBoxResult = MessageBox.Show($"Are sure you want to execute the script '{treeNode.FileName}'?", "Confirmation", 
+                            MessageBoxButton.YesNo,
+                            MessageBoxImage.None,
+                            MessageBoxResult.No);
+                    }
+
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        DocumentManager.ExecuteTemplate(treeNode.FileName, treeNode.FileFullPath, settingsRepository.ConfirmScriptExecution);
+                    }
                 }
                 catch (Exception ex)
                 {

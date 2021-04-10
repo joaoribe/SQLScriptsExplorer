@@ -33,6 +33,8 @@ namespace SQLScriptsExplorer.Addin
             chkShowExecuteFileButton.Checked = settingsRepository.ShowExecuteFileButton;
             chkConfirmScriptExecution.Checked = settingsRepository.ConfirmScriptExecution;
 
+            chkShowExecuteFileButton_CheckedChanged(null, System.EventArgs.Empty);
+
             // General
             cboParserVersion.SelectedItem = settingsRepository.SQLParserVersion;
             txtAllowedFileTypes.Text = settingsRepository.AllowedFileTypes;
@@ -61,6 +63,11 @@ namespace SQLScriptsExplorer.Addin
                 DialogResult = DialogResult.OK;
 
             Close();
+        }
+
+        private void chkShowExecuteFileButton_CheckedChanged(object sender, System.EventArgs e)
+        {
+            chkConfirmScriptExecution.Enabled = chkShowExecuteFileButton.Checked;
         }
 
         private void btnCancel_Click(object sender, System.EventArgs e)
@@ -174,10 +181,5 @@ namespace SQLScriptsExplorer.Addin
         }
 
         #endregion
-
-        private void chkShowExecuteFileButton_CheckedChanged(object sender, System.EventArgs e)
-        {
-            chkConfirmScriptExecution.Enabled = chkShowExecuteFileButton.Checked;
-        }
     }
 }

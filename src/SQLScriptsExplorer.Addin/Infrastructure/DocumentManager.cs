@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace SQLScriptsExplorer.Addin.Infrastructure
 {
@@ -75,24 +74,12 @@ namespace SQLScriptsExplorer.Addin.Infrastructure
             {
                 ThreadHelper.ThrowIfNotOnUIThread();
 
-                OpenTemplate(fileName, fileFullPath);
-
                 DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
 
                 // Ensure the document we are executing is the document we have opened by checking its name
                 if (dte.ActiveDocument != null && dte.ActiveDocument.ProjectItem.Name.Equals(fileName))
                 {
-                    DialogResult dialogResult = DialogResult.Yes;
-
-                    if (confirmScriptExecution)
-                    {
-                        dialogResult = MessageBox.Show($"Are sure you want to execute the script {fileName}?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.None, MessageBoxDefaultButton.Button2);
-                    }
-
-                    if (dialogResult == DialogResult.Yes)
-                    {
-                        dte.ExecuteCommand(CMD_QUERY_EXECUTE);
-                    }
+                    dte.ExecuteCommand(CMD_QUERY_EXECUTE);
                 }
             }
             catch (Exception ex)
