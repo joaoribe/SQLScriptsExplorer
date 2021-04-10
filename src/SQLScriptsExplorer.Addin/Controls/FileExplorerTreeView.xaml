@@ -12,8 +12,8 @@
         <converter:SortableConverter x:Key="sortableConverter" />
     </UserControl.Resources>-->
     <Grid>
-        
-        <TreeView Name="TreeViewMain" ItemsSource="{Binding}" KeyDown="TreeViewMain_KeyDown" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseDoubleClick="TreeViewMain_MouseDoubleClick" BorderThickness="0" SelectedItemChanged="TreeViewMain_SelectedItemChanged" PreviewMouseRightButtonDown="TreeViewMain_PreviewMouseRightButtonDown" PreviewMouseLeftButtonDown="TreeViewMain_PreviewMouseLeftButtonDown">
+
+        <TreeView Name="TreeViewMain" ItemsSource="{Binding}" KeyDown="TreeViewMain_KeyDown" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseDoubleClick="TreeViewMain_MouseDoubleClick" BorderThickness="0" SelectedItemChanged="TreeViewMain_SelectedItemChanged" PreviewMouseRightButtonDown="TreeViewMain_PreviewMouseRightButtonDown" PreviewMouseLeftButtonDown="TreeViewMain_PreviewMouseLeftButtonDown" ContextMenuOpening="TreeViewMain_ContextMenuOpening">
 
             <!-- Converter={StaticResource sortableConverter}, ConverterParameter=FileName} -->
             <TreeView.ItemTemplate>
@@ -40,7 +40,7 @@
             
             <TreeView.Resources>
 
-                <ContextMenu x:Key ="FileContext" StaysOpen="true">
+                <ContextMenu x:Key ="FileContext" StaysOpen="true" >
                     <MenuItem Header="Open New Instance" Click="mnuOpenNewInstance_Click">
                         <MenuItem.Icon>
                             <Image Source="../Resources/Images/OpenFile.png"/>

@@ -78,14 +78,32 @@ namespace SQLScriptsExplorer.Addin.Controls
                     case TreeNodeType.RootFolder:
                         treeView.ContextMenu = treeView.Resources["RootFolderContext"] as System.Windows.Controls.ContextMenu;
                         break;
+                }
+            }
+        }
 
+        private void TreeViewMain_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            ISettingsRepository settingsRepository = new SettingsRepository();
+            var fileContextMenu = TreeViewMain.Resources["FileContext"] as System.Windows.Controls.ContextMenu;
+
+            if (fileContextMenu != null)
+            {
+                var executeMenuItem = fileContextMenu.Items[2] as MenuItem;
+
+                if (executeMenuItem != null)
+                {
+                    if (settingsRepository.ShowExecuteFileButton)
+                        executeMenuItem.Visibility = Visibility.Visible;
+                    else
+                        executeMenuItem.Visibility = Visibility.Collapsed;
                 }
             }
         }
 
         private void TreeViewMain_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            currentTreeViewItem = VisualUpwardSearch(e.OriginalSource as DependencyObject);
+            currentTreeViewItem = VisualUpwardSearchTreeViewItem(e.OriginalSource as DependencyObject);
 
             currentTreeNode = currentTreeViewItem != null ?
                 currentTreeViewItem.DataContext as TreeNode : null;
@@ -99,7 +117,7 @@ namespace SQLScriptsExplorer.Addin.Controls
 
         private void TreeViewMain_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            currentTreeViewItem = VisualUpwardSearch(e.OriginalSource as DependencyObject);
+            currentTreeViewItem = VisualUpwardSearchTreeViewItem(e.OriginalSource as DependencyObject);
             currentTreeNode = currentTreeViewItem != null ?
                 currentTreeViewItem.DataContext as TreeNode : null;
 
@@ -110,7 +128,7 @@ namespace SQLScriptsExplorer.Addin.Controls
             }
         }
 
-        private static TreeViewItem VisualUpwardSearch(DependencyObject source)
+        private static TreeViewItem VisualUpwardSearchTreeViewItem(DependencyObject source)
         {
             while (source != null && !(source is TreeViewItem))
                 source = VisualTreeHelper.GetParent(source);
