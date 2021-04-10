@@ -29,26 +29,40 @@ namespace SQLScriptsExplorer.Addin
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cboParserVersion = new System.Windows.Forms.ComboBox();
             this.lblGeneralSettings = new System.Windows.Forms.Label();
             this.lblSQLScriptsFolder = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.gdvFolderMapping = new System.Windows.Forms.DataGridView();
-            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.chkExpandOnLoad = new System.Windows.Forms.CheckBox();
-            this.lblFolderMapping = new System.Windows.Forms.Label();
-            this.lblSeparator2 = new System.Windows.Forms.Label();
-            this.lblSeparator1 = new System.Windows.Forms.Label();
-            this.lblSQLParserVersion = new System.Windows.Forms.Label();
-            this.lblFileTypes = new System.Windows.Forms.Label();
-            this.txtAllowedFileTypes = new System.Windows.Forms.TextBox();
             this.Alias = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FolderPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Valid = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.chkExpandOnLoad = new System.Windows.Forms.CheckBox();
+            this.lblSeparator2 = new System.Windows.Forms.Label();
+            this.lblSQLParserVersion = new System.Windows.Forms.Label();
+            this.lblFileTypes = new System.Windows.Forms.Label();
+            this.txtAllowedFileTypes = new System.Windows.Forms.TextBox();
+            this.lblFileDoubleClick = new System.Windows.Forms.Label();
+            this.cboFileDoubleClick = new System.Windows.Forms.ComboBox();
+            this.chkShowExecuteFileButton = new System.Windows.Forms.CheckBox();
+            this.chkConfirmScriptExecution = new System.Windows.Forms.CheckBox();
+            this.tbcMain = new System.Windows.Forms.TabControl();
+            this.tbpFolderMapping = new System.Windows.Forms.TabPage();
+            this.tbpUserInterface = new System.Windows.Forms.TabPage();
+            this.tbpGeneral = new System.Windows.Forms.TabPage();
+            this.lblSeparator3 = new System.Windows.Forms.Label();
+            this.lblUISettings = new System.Windows.Forms.Label();
+            this.lblSeparator1 = new System.Windows.Forms.Label();
+            this.lblFolderMapping = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gdvFolderMapping)).BeginInit();
+            this.tbcMain.SuspendLayout();
+            this.tbpFolderMapping.SuspendLayout();
+            this.tbpUserInterface.SuspendLayout();
+            this.tbpGeneral.SuspendLayout();
             this.SuspendLayout();
             // 
             // cboParserVersion
@@ -59,24 +73,24 @@ namespace SQLScriptsExplorer.Addin
             "SQL Server 2019",
             "SQL Server 2017",
             "SQL Server 2016"});
-            this.cboParserVersion.Location = new System.Drawing.Point(148, 294);
+            this.cboParserVersion.Location = new System.Drawing.Point(151, 42);
             this.cboParserVersion.Name = "cboParserVersion";
             this.cboParserVersion.Size = new System.Drawing.Size(212, 21);
-            this.cboParserVersion.TabIndex = 8;
+            this.cboParserVersion.TabIndex = 3;
             // 
             // lblGeneralSettings
             // 
             this.lblGeneralSettings.AutoSize = true;
-            this.lblGeneralSettings.Location = new System.Drawing.Point(18, 267);
+            this.lblGeneralSettings.Location = new System.Drawing.Point(21, 15);
             this.lblGeneralSettings.Name = "lblGeneralSettings";
             this.lblGeneralSettings.Size = new System.Drawing.Size(85, 13);
-            this.lblGeneralSettings.TabIndex = 5;
+            this.lblGeneralSettings.TabIndex = 0;
             this.lblGeneralSettings.Text = "General Settings";
             // 
             // lblSQLScriptsFolder
             // 
             this.lblSQLScriptsFolder.AutoSize = true;
-            this.lblSQLScriptsFolder.Location = new System.Drawing.Point(43, 44);
+            this.lblSQLScriptsFolder.Location = new System.Drawing.Point(46, 43);
             this.lblSQLScriptsFolder.Name = "lblSQLScriptsFolder";
             this.lblSQLScriptsFolder.Size = new System.Drawing.Size(510, 13);
             this.lblSQLScriptsFolder.TabIndex = 2;
@@ -85,20 +99,20 @@ namespace SQLScriptsExplorer.Addin
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(515, 362);
+            this.btnCancel.Location = new System.Drawing.Point(593, 370);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 8;
+            this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(434, 362);
+            this.btnSave.Location = new System.Drawing.Point(512, 370);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 7;
+            this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -111,9 +125,9 @@ namespace SQLScriptsExplorer.Addin
             this.Alias,
             this.FolderPath,
             this.Valid});
-            this.gdvFolderMapping.Location = new System.Drawing.Point(46, 65);
+            this.gdvFolderMapping.Location = new System.Drawing.Point(49, 64);
             this.gdvFolderMapping.Name = "gdvFolderMapping";
-            this.gdvFolderMapping.Size = new System.Drawing.Size(544, 155);
+            this.gdvFolderMapping.Size = new System.Drawing.Size(544, 199);
             this.gdvFolderMapping.TabIndex = 3;
             this.gdvFolderMapping.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.gdvFolderMapping_CellEndEdit);
             this.gdvFolderMapping.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.gdvFolderMapping_CellFormatting);
@@ -121,77 +135,6 @@ namespace SQLScriptsExplorer.Addin
             this.gdvFolderMapping.DragOver += new System.Windows.Forms.DragEventHandler(this.gdvFolderMapping_DragOver);
             this.gdvFolderMapping.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gdvFolderMapping_MouseDown);
             this.gdvFolderMapping.MouseMove += new System.Windows.Forms.MouseEventHandler(this.gdvFolderMapping_MouseMove);
-            // 
-            // dataGridViewImageColumn1
-            // 
-            this.dataGridViewImageColumn1.DataPropertyName = "IsValid";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.NullValue = "Error";
-            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle5;
-            this.dataGridViewImageColumn1.HeaderText = "Valid";
-            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
-            this.dataGridViewImageColumn1.Width = 40;
-            // 
-            // chkExpandOnLoad
-            // 
-            this.chkExpandOnLoad.AutoSize = true;
-            this.chkExpandOnLoad.Location = new System.Drawing.Point(46, 228);
-            this.chkExpandOnLoad.Name = "chkExpandOnLoad";
-            this.chkExpandOnLoad.Size = new System.Drawing.Size(231, 17);
-            this.chkExpandOnLoad.TabIndex = 4;
-            this.chkExpandOnLoad.Text = "Expand mapped folders after loading scripts";
-            this.chkExpandOnLoad.UseVisualStyleBackColor = true;
-            // 
-            // lblFolderMapping
-            // 
-            this.lblFolderMapping.AutoSize = true;
-            this.lblFolderMapping.Location = new System.Drawing.Point(18, 16);
-            this.lblFolderMapping.Name = "lblFolderMapping";
-            this.lblFolderMapping.Size = new System.Drawing.Size(80, 13);
-            this.lblFolderMapping.TabIndex = 0;
-            this.lblFolderMapping.Text = "Folder Mapping";
-            // 
-            // lblSeparator2
-            // 
-            this.lblSeparator2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblSeparator2.Location = new System.Drawing.Point(120, 275);
-            this.lblSeparator2.Name = "lblSeparator2";
-            this.lblSeparator2.Size = new System.Drawing.Size(470, 2);
-            this.lblSeparator2.TabIndex = 6;
-            // 
-            // lblSeparator1
-            // 
-            this.lblSeparator1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblSeparator1.Location = new System.Drawing.Point(120, 24);
-            this.lblSeparator1.Name = "lblSeparator1";
-            this.lblSeparator1.Size = new System.Drawing.Size(470, 2);
-            this.lblSeparator1.TabIndex = 1;
-            // 
-            // lblSQLParserVersion
-            // 
-            this.lblSQLParserVersion.AutoSize = true;
-            this.lblSQLParserVersion.Location = new System.Drawing.Point(43, 297);
-            this.lblSQLParserVersion.Name = "lblSQLParserVersion";
-            this.lblSQLParserVersion.Size = new System.Drawing.Size(99, 13);
-            this.lblSQLParserVersion.TabIndex = 7;
-            this.lblSQLParserVersion.Text = "SQL Parser Version";
-            // 
-            // lblFileTypes
-            // 
-            this.lblFileTypes.AutoSize = true;
-            this.lblFileTypes.Location = new System.Drawing.Point(43, 324);
-            this.lblFileTypes.Name = "lblFileTypes";
-            this.lblFileTypes.Size = new System.Drawing.Size(95, 13);
-            this.lblFileTypes.TabIndex = 9;
-            this.lblFileTypes.Text = "Allowed File Types";
-            // 
-            // txtAllowedFileTypes
-            // 
-            this.txtAllowedFileTypes.Enabled = false;
-            this.txtAllowedFileTypes.Location = new System.Drawing.Point(148, 321);
-            this.txtAllowedFileTypes.Name = "txtAllowedFileTypes";
-            this.txtAllowedFileTypes.Size = new System.Drawing.Size(212, 20);
-            this.txtAllowedFileTypes.TabIndex = 10;
             // 
             // Alias
             // 
@@ -210,29 +153,206 @@ namespace SQLScriptsExplorer.Addin
             // Valid
             // 
             this.Valid.DataPropertyName = "IsValid";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.NullValue = "Error";
-            this.Valid.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle29.NullValue = "Error";
+            this.Valid.DefaultCellStyle = dataGridViewCellStyle29;
             this.Valid.HeaderText = "Valid";
             this.Valid.Name = "Valid";
             this.Valid.Width = 40;
+            // 
+            // dataGridViewImageColumn1
+            // 
+            this.dataGridViewImageColumn1.DataPropertyName = "IsValid";
+            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle30.NullValue = "Error";
+            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle30;
+            this.dataGridViewImageColumn1.HeaderText = "Valid";
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            this.dataGridViewImageColumn1.Width = 40;
+            // 
+            // chkExpandOnLoad
+            // 
+            this.chkExpandOnLoad.AutoSize = true;
+            this.chkExpandOnLoad.Location = new System.Drawing.Point(49, 269);
+            this.chkExpandOnLoad.Name = "chkExpandOnLoad";
+            this.chkExpandOnLoad.Size = new System.Drawing.Size(231, 17);
+            this.chkExpandOnLoad.TabIndex = 4;
+            this.chkExpandOnLoad.Text = "Expand mapped folders after loading scripts";
+            this.chkExpandOnLoad.UseVisualStyleBackColor = true;
+            // 
+            // lblSeparator2
+            // 
+            this.lblSeparator2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblSeparator2.Location = new System.Drawing.Point(123, 23);
+            this.lblSeparator2.Name = "lblSeparator2";
+            this.lblSeparator2.Size = new System.Drawing.Size(470, 2);
+            this.lblSeparator2.TabIndex = 1;
+            // 
+            // lblSQLParserVersion
+            // 
+            this.lblSQLParserVersion.AutoSize = true;
+            this.lblSQLParserVersion.Location = new System.Drawing.Point(46, 45);
+            this.lblSQLParserVersion.Name = "lblSQLParserVersion";
+            this.lblSQLParserVersion.Size = new System.Drawing.Size(99, 13);
+            this.lblSQLParserVersion.TabIndex = 2;
+            this.lblSQLParserVersion.Text = "SQL Parser Version";
+            // 
+            // lblFileTypes
+            // 
+            this.lblFileTypes.AutoSize = true;
+            this.lblFileTypes.Location = new System.Drawing.Point(46, 72);
+            this.lblFileTypes.Name = "lblFileTypes";
+            this.lblFileTypes.Size = new System.Drawing.Size(95, 13);
+            this.lblFileTypes.TabIndex = 4;
+            this.lblFileTypes.Text = "Allowed File Types";
+            // 
+            // txtAllowedFileTypes
+            // 
+            this.txtAllowedFileTypes.Enabled = false;
+            this.txtAllowedFileTypes.Location = new System.Drawing.Point(151, 69);
+            this.txtAllowedFileTypes.Name = "txtAllowedFileTypes";
+            this.txtAllowedFileTypes.Size = new System.Drawing.Size(212, 20);
+            this.txtAllowedFileTypes.TabIndex = 5;
+            // 
+            // lblFileDoubleClick
+            // 
+            this.lblFileDoubleClick.AutoSize = true;
+            this.lblFileDoubleClick.Location = new System.Drawing.Point(46, 97);
+            this.lblFileDoubleClick.Name = "lblFileDoubleClick";
+            this.lblFileDoubleClick.Size = new System.Drawing.Size(86, 13);
+            this.lblFileDoubleClick.TabIndex = 4;
+            this.lblFileDoubleClick.Text = "File Double-Click";
+            // 
+            // cboFileDoubleClick
+            // 
+            this.cboFileDoubleClick.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboFileDoubleClick.FormattingEnabled = true;
+            this.cboFileDoubleClick.Items.AddRange(new object[] {
+            "Open New Instance",
+            "Edit"});
+            this.cboFileDoubleClick.Location = new System.Drawing.Point(151, 94);
+            this.cboFileDoubleClick.Name = "cboFileDoubleClick";
+            this.cboFileDoubleClick.Size = new System.Drawing.Size(212, 21);
+            this.cboFileDoubleClick.TabIndex = 5;
+            // 
+            // chkShowExecuteFileButton
+            // 
+            this.chkShowExecuteFileButton.AutoSize = true;
+            this.chkShowExecuteFileButton.Location = new System.Drawing.Point(49, 46);
+            this.chkShowExecuteFileButton.Name = "chkShowExecuteFileButton";
+            this.chkShowExecuteFileButton.Size = new System.Drawing.Size(230, 17);
+            this.chkShowExecuteFileButton.TabIndex = 2;
+            this.chkShowExecuteFileButton.Text = "Show \'Execute\' option in File Context Menu";
+            this.chkShowExecuteFileButton.UseVisualStyleBackColor = true;
+            // 
+            // chkConfirmScriptExecution
+            // 
+            this.chkConfirmScriptExecution.AutoSize = true;
+            this.chkConfirmScriptExecution.Location = new System.Drawing.Point(49, 69);
+            this.chkConfirmScriptExecution.Name = "chkConfirmScriptExecution";
+            this.chkConfirmScriptExecution.Size = new System.Drawing.Size(283, 17);
+            this.chkConfirmScriptExecution.TabIndex = 3;
+            this.chkConfirmScriptExecution.Text = "Confirm script execution when using File Context Menu";
+            this.chkConfirmScriptExecution.UseVisualStyleBackColor = true;
+            // 
+            // tbcMain
+            // 
+            this.tbcMain.Controls.Add(this.tbpFolderMapping);
+            this.tbcMain.Controls.Add(this.tbpUserInterface);
+            this.tbcMain.Controls.Add(this.tbpGeneral);
+            this.tbcMain.Location = new System.Drawing.Point(16, 17);
+            this.tbcMain.Name = "tbcMain";
+            this.tbcMain.SelectedIndex = 0;
+            this.tbcMain.Size = new System.Drawing.Size(656, 336);
+            this.tbcMain.TabIndex = 0;
+            // 
+            // tbpFolderMapping
+            // 
+            this.tbpFolderMapping.Controls.Add(this.gdvFolderMapping);
+            this.tbpFolderMapping.Controls.Add(this.lblSQLScriptsFolder);
+            this.tbpFolderMapping.Controls.Add(this.chkExpandOnLoad);
+            this.tbpFolderMapping.Controls.Add(this.lblFolderMapping);
+            this.tbpFolderMapping.Controls.Add(this.lblSeparator1);
+            this.tbpFolderMapping.Location = new System.Drawing.Point(4, 22);
+            this.tbpFolderMapping.Name = "tbpFolderMapping";
+            this.tbpFolderMapping.Padding = new System.Windows.Forms.Padding(3);
+            this.tbpFolderMapping.Size = new System.Drawing.Size(648, 310);
+            this.tbpFolderMapping.TabIndex = 0;
+            this.tbpFolderMapping.Text = "Folder Mapping";
+            this.tbpFolderMapping.UseVisualStyleBackColor = true;
+            // 
+            // tbpUserInterface
+            // 
+            this.tbpUserInterface.Controls.Add(this.lblUISettings);
+            this.tbpUserInterface.Controls.Add(this.chkConfirmScriptExecution);
+            this.tbpUserInterface.Controls.Add(this.lblSeparator3);
+            this.tbpUserInterface.Controls.Add(this.chkShowExecuteFileButton);
+            this.tbpUserInterface.Controls.Add(this.cboFileDoubleClick);
+            this.tbpUserInterface.Controls.Add(this.lblFileDoubleClick);
+            this.tbpUserInterface.Location = new System.Drawing.Point(4, 22);
+            this.tbpUserInterface.Name = "tbpUserInterface";
+            this.tbpUserInterface.Padding = new System.Windows.Forms.Padding(3);
+            this.tbpUserInterface.Size = new System.Drawing.Size(648, 310);
+            this.tbpUserInterface.TabIndex = 1;
+            this.tbpUserInterface.Text = "User Interface";
+            this.tbpUserInterface.UseVisualStyleBackColor = true;
+            // 
+            // tbpGeneral
+            // 
+            this.tbpGeneral.Controls.Add(this.lblGeneralSettings);
+            this.tbpGeneral.Controls.Add(this.txtAllowedFileTypes);
+            this.tbpGeneral.Controls.Add(this.cboParserVersion);
+            this.tbpGeneral.Controls.Add(this.lblFileTypes);
+            this.tbpGeneral.Controls.Add(this.lblSeparator2);
+            this.tbpGeneral.Controls.Add(this.lblSQLParserVersion);
+            this.tbpGeneral.Location = new System.Drawing.Point(4, 22);
+            this.tbpGeneral.Name = "tbpGeneral";
+            this.tbpGeneral.Padding = new System.Windows.Forms.Padding(3);
+            this.tbpGeneral.Size = new System.Drawing.Size(648, 310);
+            this.tbpGeneral.TabIndex = 2;
+            this.tbpGeneral.Text = "General";
+            this.tbpGeneral.UseVisualStyleBackColor = true;
+            // 
+            // lblSeparator3
+            // 
+            this.lblSeparator3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblSeparator3.Location = new System.Drawing.Point(143, 23);
+            this.lblSeparator3.Name = "lblSeparator3";
+            this.lblSeparator3.Size = new System.Drawing.Size(450, 2);
+            this.lblSeparator3.TabIndex = 1;
+            // 
+            // lblUISettings
+            // 
+            this.lblUISettings.AutoSize = true;
+            this.lblUISettings.Location = new System.Drawing.Point(21, 15);
+            this.lblUISettings.Name = "lblUISettings";
+            this.lblUISettings.Size = new System.Drawing.Size(115, 13);
+            this.lblUISettings.TabIndex = 0;
+            this.lblUISettings.Text = "User Interface Settings";
+            // 
+            // lblSeparator1
+            // 
+            this.lblSeparator1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblSeparator1.Location = new System.Drawing.Point(123, 23);
+            this.lblSeparator1.Name = "lblSeparator1";
+            this.lblSeparator1.Size = new System.Drawing.Size(470, 2);
+            this.lblSeparator1.TabIndex = 1;
+            // 
+            // lblFolderMapping
+            // 
+            this.lblFolderMapping.AutoSize = true;
+            this.lblFolderMapping.Location = new System.Drawing.Point(21, 15);
+            this.lblFolderMapping.Name = "lblFolderMapping";
+            this.lblFolderMapping.Size = new System.Drawing.Size(80, 13);
+            this.lblFolderMapping.TabIndex = 0;
+            this.lblFolderMapping.Text = "Folder Mapping";
             // 
             // frmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(610, 397);
-            this.Controls.Add(this.txtAllowedFileTypes);
-            this.Controls.Add(this.lblFileTypes);
-            this.Controls.Add(this.lblSQLParserVersion);
-            this.Controls.Add(this.lblSeparator1);
-            this.Controls.Add(this.lblSeparator2);
-            this.Controls.Add(this.lblFolderMapping);
-            this.Controls.Add(this.chkExpandOnLoad);
-            this.Controls.Add(this.gdvFolderMapping);
-            this.Controls.Add(this.cboParserVersion);
-            this.Controls.Add(this.lblGeneralSettings);
-            this.Controls.Add(this.lblSQLScriptsFolder);
+            this.ClientSize = new System.Drawing.Size(690, 412);
+            this.Controls.Add(this.tbcMain);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -245,8 +365,14 @@ namespace SQLScriptsExplorer.Addin
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SQL Scripts Explorer Settings";
             ((System.ComponentModel.ISupportInitialize)(this.gdvFolderMapping)).EndInit();
+            this.tbcMain.ResumeLayout(false);
+            this.tbpFolderMapping.ResumeLayout(false);
+            this.tbpFolderMapping.PerformLayout();
+            this.tbpUserInterface.ResumeLayout(false);
+            this.tbpUserInterface.PerformLayout();
+            this.tbpGeneral.ResumeLayout(false);
+            this.tbpGeneral.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -259,14 +385,24 @@ namespace SQLScriptsExplorer.Addin
         private System.Windows.Forms.DataGridView gdvFolderMapping;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
         internal System.Windows.Forms.CheckBox chkExpandOnLoad;
-        internal System.Windows.Forms.Label lblFolderMapping;
         private System.Windows.Forms.Label lblSeparator2;
-        private System.Windows.Forms.Label lblSeparator1;
         internal System.Windows.Forms.Label lblSQLParserVersion;
         internal System.Windows.Forms.Label lblFileTypes;
         private System.Windows.Forms.TextBox txtAllowedFileTypes;
         private System.Windows.Forms.DataGridViewTextBoxColumn Alias;
         private System.Windows.Forms.DataGridViewTextBoxColumn FolderPath;
         private System.Windows.Forms.DataGridViewImageColumn Valid;
+        internal System.Windows.Forms.Label lblFileDoubleClick;
+        internal System.Windows.Forms.ComboBox cboFileDoubleClick;
+        private System.Windows.Forms.CheckBox chkShowExecuteFileButton;
+        private System.Windows.Forms.CheckBox chkConfirmScriptExecution;
+        private System.Windows.Forms.TabControl tbcMain;
+        private System.Windows.Forms.TabPage tbpFolderMapping;
+        private System.Windows.Forms.TabPage tbpUserInterface;
+        private System.Windows.Forms.TabPage tbpGeneral;
+        internal System.Windows.Forms.Label lblFolderMapping;
+        private System.Windows.Forms.Label lblSeparator1;
+        internal System.Windows.Forms.Label lblUISettings;
+        private System.Windows.Forms.Label lblSeparator3;
     }
 }
