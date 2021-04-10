@@ -9,6 +9,8 @@ namespace SQLScriptsExplorer.Addin.Repository.Interfaces
         string SQLParserVersion { get; set; }
         string AllowedFileTypes { get; set; }
         bool ExpandMappedFoldersOnLoad { get; set; }
+        bool ShowExecuteFileButton { get; set; }
+        bool ConfirmScriptExecution { get; set; }
 
         void Refresh();
         void Save();

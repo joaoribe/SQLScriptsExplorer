@@ -29,8 +29,8 @@ namespace SQLScriptsExplorer.Addin
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cboParserVersion = new System.Windows.Forms.ComboBox();
             this.lblGeneralSettings = new System.Windows.Forms.Label();
             this.lblSQLScriptsFolder = new System.Windows.Forms.Label();
@@ -153,9 +153,9 @@ namespace SQLScriptsExplorer.Addin
             // Valid
             // 
             this.Valid.DataPropertyName = "IsValid";
-            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle29.NullValue = "Error";
-            this.Valid.DefaultCellStyle = dataGridViewCellStyle29;
+            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle31.NullValue = "Error";
+            this.Valid.DefaultCellStyle = dataGridViewCellStyle31;
             this.Valid.HeaderText = "Valid";
             this.Valid.Name = "Valid";
             this.Valid.Width = 40;
@@ -163,9 +163,9 @@ namespace SQLScriptsExplorer.Addin
             // dataGridViewImageColumn1
             // 
             this.dataGridViewImageColumn1.DataPropertyName = "IsValid";
-            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle30.NullValue = "Error";
-            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle30;
+            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle32.NullValue = "Error";
+            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle32;
             this.dataGridViewImageColumn1.HeaderText = "Valid";
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             this.dataGridViewImageColumn1.Width = 40;
@@ -244,6 +244,7 @@ namespace SQLScriptsExplorer.Addin
             this.chkShowExecuteFileButton.TabIndex = 2;
             this.chkShowExecuteFileButton.Text = "Show \'Execute\' option in File Context Menu";
             this.chkShowExecuteFileButton.UseVisualStyleBackColor = true;
+            this.chkShowExecuteFileButton.CheckedChanged += new System.EventHandler(this.chkShowExecuteFileButton_CheckedChanged);
             // 
             // chkConfirmScriptExecution
             // 

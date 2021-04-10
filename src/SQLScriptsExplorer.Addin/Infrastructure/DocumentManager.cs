@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace SQLScriptsExplorer.Addin.Infrastructure
 {
@@ -24,7 +25,7 @@ namespace SQLScriptsExplorer.Addin.Infrastructure
 
                     DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
                     var fileDocument = dte.ItemOperations.NewFile(@"General\Text File", fileName).Document;
-                    
+
                     TextSelection textSelection = fileDocument.Selection as TextSelection;
                     textSelection.SelectAll();
                     textSelection.Text = string.Empty;
@@ -66,7 +67,7 @@ namespace SQLScriptsExplorer.Addin.Infrastructure
             }
         }
 
-        public static void ExecuteTemplate(string fileName, string fileFullPath)
+        public static void ExecuteTemplate(string fileName, string fileFullPath, bool confirmScriptExecution)
         {
             string CMD_QUERY_EXECUTE = "Query.Execute";
 
@@ -81,7 +82,17 @@ namespace SQLScriptsExplorer.Addin.Infrastructure
                 // Ensure the document we are executing is the document we have opened by checking its name
                 if (dte.ActiveDocument != null && dte.ActiveDocument.ProjectItem.Name.Equals(fileName))
                 {
-                    dte.ExecuteCommand(CMD_QUERY_EXECUTE);
+                    DialogResult dialogResult = DialogResult.Yes;
+
+                    if (confirmScriptExecution)
+                    {
+                        dialogResult = MessageBox.Show($"Are sure you want to execute the script {fileName}?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.None, MessageBoxDefaultButton.Button2);
+                    }
+
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        dte.ExecuteCommand(CMD_QUERY_EXECUTE);
+                    }
                 }
             }
             catch (Exception ex)

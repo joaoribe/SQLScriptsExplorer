@@ -20,25 +20,39 @@ namespace SQLScriptsExplorer.Addin
 
             settingsRepository = new SettingsRepository();
 
-            cboParserVersion.SelectedItem = settingsRepository.SQLParserVersion;
-            chkExpandOnLoad.Checked = settingsRepository.ExpandMappedFoldersOnLoad;
-            txtAllowedFileTypes.Text = settingsRepository.AllowedFileTypes;
-
+            // Folder Mapping
             jsonFolderMappingPrevious = Newtonsoft.Json.JsonConvert.SerializeObject(settingsRepository.FolderMapping);
             folderMappingBindingList = new BindingList<FolderMapping>(settingsRepository.FolderMapping);
 
             gdvFolderMapping.AutoGenerateColumns = false;
             gdvFolderMapping.DataSource = folderMappingBindingList;
+
+            chkExpandOnLoad.Checked = settingsRepository.ExpandMappedFoldersOnLoad;
+
+            // User Interface
+            chkShowExecuteFileButton.Checked = settingsRepository.ShowExecuteFileButton;
+            chkConfirmScriptExecution.Checked = settingsRepository.ConfirmScriptExecution;
+
+            // General
+            cboParserVersion.SelectedItem = settingsRepository.SQLParserVersion;
+            txtAllowedFileTypes.Text = settingsRepository.AllowedFileTypes;
         }
 
         private void btnSave_Click(object sender, System.EventArgs e)
         {
             var jsonFolderMappingCurrent = Newtonsoft.Json.JsonConvert.SerializeObject(folderMappingBindingList.ToList());
 
-            settingsRepository.SQLParserVersion = cboParserVersion.SelectedItem.ToString();
-            settingsRepository.ExpandMappedFoldersOnLoad = chkExpandOnLoad.Checked;
-            settingsRepository.AllowedFileTypes = txtAllowedFileTypes.Text;
+            // Folder Mapping
             settingsRepository.FolderMapping = folderMappingBindingList.ToList();
+            settingsRepository.ExpandMappedFoldersOnLoad = chkExpandOnLoad.Checked;
+
+            // User Interface
+            settingsRepository.ShowExecuteFileButton = chkShowExecuteFileButton.Checked;
+            settingsRepository.ConfirmScriptExecution = chkConfirmScriptExecution.Checked;
+
+            // General
+            settingsRepository.SQLParserVersion = cboParserVersion.SelectedItem.ToString();
+            settingsRepository.AllowedFileTypes = txtAllowedFileTypes.Text;
 
             settingsRepository.Save();
 
@@ -160,5 +174,10 @@ namespace SQLScriptsExplorer.Addin
         }
 
         #endregion
+
+        private void chkShowExecuteFileButton_CheckedChanged(object sender, System.EventArgs e)
+        {
+            chkConfirmScriptExecution.Enabled = chkShowExecuteFileButton.Checked;
+        }
     }
 }

@@ -13,6 +13,8 @@ namespace SQLScriptsExplorer.Addin.Repository
         private const string SQL_PARSER = "SQLParser";
         private const string EXPAND_MAPPEDFOLDERS_ONLOAD = "ExpandMappedFoldersOnLoad";
         private const string ALLOWED_FILE_TYPES = "AllowedFileTypes";
+        private const string SHOW_EXECUTEFILE_BUTTON = "ShowExecuteFileButton";
+        private const string CONFIRM_SCRIPT_EXECUTION = "ConfirmScriptExecution";
 
         public List<FolderMapping> FolderMapping { get; set; }
 
@@ -22,6 +24,10 @@ namespace SQLScriptsExplorer.Addin.Repository
 
         public string AllowedFileTypes { get; set; }
 
+        public bool ShowExecuteFileButton { get; set; }
+
+        public bool ConfirmScriptExecution { get; set; }
+
         public SettingsRepository()
         {
             Refresh();
@@ -30,7 +36,8 @@ namespace SQLScriptsExplorer.Addin.Repository
         public void Refresh()
         {
             LoadFolderMapping();
-            LoadOtherSettings();
+            LoadUserInterfaceSettings();
+            LoadGenericSettings();
         }
 
         public void Save()
@@ -41,6 +48,8 @@ namespace SQLScriptsExplorer.Addin.Repository
             RegistryManager.SaveRegisterValue(SQL_PARSER, SQLParserVersion);
             RegistryManager.SaveRegisterValue(EXPAND_MAPPEDFOLDERS_ONLOAD, ExpandMappedFoldersOnLoad.ToString());
             RegistryManager.SaveRegisterValue(ALLOWED_FILE_TYPES, AllowedFileTypes);
+            RegistryManager.SaveRegisterValue(SHOW_EXECUTEFILE_BUTTON, ShowExecuteFileButton.ToString());
+            RegistryManager.SaveRegisterValue(CONFIRM_SCRIPT_EXECUTION, ConfirmScriptExecution.ToString());
         }
 
         private void LoadFolderMapping()
@@ -72,7 +81,24 @@ namespace SQLScriptsExplorer.Addin.Repository
             }
         }
 
-        private void LoadOtherSettings()
+        private void LoadUserInterfaceSettings()
+        {
+            // Show Execute File Button and 
+            var showExecuteFileButton = RegistryManager.GetRegisterValue(SHOW_EXECUTEFILE_BUTTON);
+            if (string.IsNullOrEmpty(showExecuteFileButton))
+                ShowExecuteFileButton = true;
+            else
+                ShowExecuteFileButton = bool.Parse(showExecuteFileButton);
+
+            // Confirm Script Execution
+            var confirmScriptExecution = RegistryManager.GetRegisterValue(CONFIRM_SCRIPT_EXECUTION);
+            if (string.IsNullOrEmpty(confirmScriptExecution))
+                ConfirmScriptExecution = true;
+            else
+                ConfirmScriptExecution = bool.Parse(confirmScriptExecution);
+        }
+
+        private void LoadGenericSettings()
         {
             // SQL Parser Version
             SQLParserVersion = RegistryManager.GetRegisterValue(SQL_PARSER);

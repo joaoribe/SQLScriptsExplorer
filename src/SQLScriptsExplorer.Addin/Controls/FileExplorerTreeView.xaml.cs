@@ -3,6 +3,8 @@ using SQLScriptsExplorer.Addin.Infrastructure.Extensions;
 using SQLScriptsExplorer.Addin.Infrastructure.Helpers;
 using SQLScriptsExplorer.Addin.Models;
 using SQLScriptsExplorer.Addin.Models.Enums;
+using SQLScriptsExplorer.Addin.Repository;
+using SQLScriptsExplorer.Addin.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -177,7 +179,9 @@ namespace SQLScriptsExplorer.Addin.Controls
             {
                 try
                 {
-                    DocumentManager.ExecuteTemplate(treeNode.FileName, treeNode.FileFullPath);
+                    ISettingsRepository settingsRepository = new SettingsRepository();
+
+                    DocumentManager.ExecuteTemplate(treeNode.FileName, treeNode.FileFullPath, settingsRepository.ConfirmScriptExecution);
                 }
                 catch (Exception ex)
                 {
