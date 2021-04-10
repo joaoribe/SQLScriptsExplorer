@@ -46,7 +46,12 @@
                             <Image Source="../Resources/Images/OpenFile.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Edit" Click="mnuEditFile_Click"/>
+                    <MenuItem Header="Edit" Click="mnuEditFile_Click" />
+                    <MenuItem Header="Execute" Click="mnuExecuteFile_Click">
+                        <MenuItem.Icon>
+                            <Image Source="../Resources/Images/Run.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <Separator/>
                     <MenuItem Header="Open Containing Folder" Click="mnuOpenFolder_Click">
                         <MenuItem.Icon>

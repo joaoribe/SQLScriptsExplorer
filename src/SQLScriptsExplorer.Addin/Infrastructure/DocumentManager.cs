@@ -24,12 +24,14 @@ namespace SQLScriptsExplorer.Addin.Infrastructure
 
                     DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
                     var fileDocument = dte.ItemOperations.NewFile(@"General\Text File", fileName).Document;
-
+                    
                     TextSelection textSelection = fileDocument.Selection as TextSelection;
                     textSelection.SelectAll();
                     textSelection.Text = string.Empty;
                     textSelection.Insert(fileContent);
                     textSelection.StartOfDocument();
+
+                    fileDocument.Save();
                 }
                 else
                 {
@@ -56,6 +58,30 @@ namespace SQLScriptsExplorer.Addin.Infrastructure
                 else
                 {
                     throw new Exception($"File {fileFullPath} doesn't exist!");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static void ExecuteTemplate(string fileName, string fileFullPath)
+        {
+            string CMD_QUERY_EXECUTE = "Query.Execute";
+
+            try
+            {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
+                OpenTemplate(fileName, fileFullPath);
+
+                DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
+
+                // Ensure the document we are executing is the document we have opened by checking its name
+                if (dte.ActiveDocument != null && dte.ActiveDocument.ProjectItem.Name.Equals(fileName))
+                {
+                    dte.ExecuteCommand(CMD_QUERY_EXECUTE);
                 }
             }
             catch (Exception ex)

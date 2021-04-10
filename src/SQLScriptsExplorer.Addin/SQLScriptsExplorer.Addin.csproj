@@ -241,6 +241,7 @@
     <Resource Include="Resources\Images\Settings.png" />
     <Resource Include="Resources\Images\Success.png" />
     <Resource Include="Resources\Images\SQLScriptsManager.png" />
+    <Resource Include="Resources\Images\Run.png" />
     <Content Include="Resources\Images\ToolbarCommand.png" />
     <Content Include="Resources\Images\ToolbarCommandPackage.ico" />
     <Content Include="Resources\Images\ToolWindow1Package.ico" />

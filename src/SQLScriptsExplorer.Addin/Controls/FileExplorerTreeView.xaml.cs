@@ -169,6 +169,23 @@ namespace SQLScriptsExplorer.Addin.Controls
             }
         }
 
+        private void mnuExecuteFile_Click(object sender, RoutedEventArgs e)
+        {
+            var treeNode = TreeViewMain.SelectedItem as TreeNode;
+
+            if (treeNode != null && treeNode.Type == TreeNodeType.File && !isEditMode)
+            {
+                try
+                {
+                    DocumentManager.ExecuteTemplate(treeNode.FileName, treeNode.FileFullPath);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
         private void mnuRename_Click(object sender, RoutedEventArgs e)
         {
             // Get the TextBox control as defined in TreeView.ItemTemplate
