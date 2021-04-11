@@ -1,4 +1,5 @@
 ﻿using SQLScriptsExplorer.Addin.Models;
+using SQLScriptsExplorer.Addin.Models.Enums;
 using System.Collections.Generic;
 
 namespace SQLScriptsExplorer.Addin.Repository.Interfaces
@@ -11,6 +12,8 @@ namespace SQLScriptsExplorer.Addin.Repository.Interfaces
         bool ExpandMappedFoldersOnLoad { get; set; }
         bool ShowExecuteFileButton { get; set; }
         bool ConfirmScriptExecution { get; set; }
+
+        ScriptFileDoubleClickBehaviour ScriptFileDoubleClickBehaviour { get; set; }
 
         void Refresh();
         void Save();

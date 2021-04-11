@@ -1,5 +1,6 @@
 ﻿using SQLScriptsExplorer.Addin.Infrastructure;
 using SQLScriptsExplorer.Addin.Models;
+using SQLScriptsExplorer.Addin.Models.Enums;
 using SQLScriptsExplorer.Addin.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace SQLScriptsExplorer.Addin.Repository
         private const string ALLOWED_FILE_TYPES = "AllowedFileTypes";
         private const string SHOW_EXECUTEFILE_BUTTON = "ShowExecuteFileButton";
         private const string CONFIRM_SCRIPT_EXECUTION = "ConfirmScriptExecution";
+        private const string SCRIPT_FILE_DOUBLE_CLICK_BEHAVIOUR = "ScriptFileDoubleClickBehaviour";
 
         public List<FolderMapping> FolderMapping { get; set; }
 
@@ -28,6 +30,8 @@ namespace SQLScriptsExplorer.Addin.Repository
 
         public bool ConfirmScriptExecution { get; set; }
 
+        public ScriptFileDoubleClickBehaviour ScriptFileDoubleClickBehaviour { get; set; }
+
         public SettingsRepository()
         {
             Refresh();
@@ -36,7 +40,7 @@ namespace SQLScriptsExplorer.Addin.Repository
         public void Refresh()
         {
             LoadFolderMapping();
-            LoadUserInterfaceSettings();
+            LoadFileExplorerSettings();
             LoadGenericSettings();
         }
 
@@ -50,6 +54,7 @@ namespace SQLScriptsExplorer.Addin.Repository
             RegistryManager.SaveRegisterValue(ALLOWED_FILE_TYPES, AllowedFileTypes);
             RegistryManager.SaveRegisterValue(SHOW_EXECUTEFILE_BUTTON, ShowExecuteFileButton.ToString());
             RegistryManager.SaveRegisterValue(CONFIRM_SCRIPT_EXECUTION, ConfirmScriptExecution.ToString());
+            RegistryManager.SaveRegisterValue(SCRIPT_FILE_DOUBLE_CLICK_BEHAVIOUR, $"{(int)ScriptFileDoubleClickBehaviour}");
         }
 
         private void LoadFolderMapping()
@@ -81,7 +86,7 @@ namespace SQLScriptsExplorer.Addin.Repository
             }
         }
 
-        private void LoadUserInterfaceSettings()
+        private void LoadFileExplorerSettings()
         {
             // Show Execute File Button and 
             var showExecuteFileButton = RegistryManager.GetRegisterValue(SHOW_EXECUTEFILE_BUTTON);
@@ -96,6 +101,13 @@ namespace SQLScriptsExplorer.Addin.Repository
                 ConfirmScriptExecution = true;
             else
                 ConfirmScriptExecution = bool.Parse(confirmScriptExecution);
+
+            // Script File Double Click Behaviour
+            var scriptFileDoubleClickBehaviour = RegistryManager.GetRegisterValue(SCRIPT_FILE_DOUBLE_CLICK_BEHAVIOUR);
+            if (string.IsNullOrEmpty(scriptFileDoubleClickBehaviour))
+                ScriptFileDoubleClickBehaviour = ScriptFileDoubleClickBehaviour.OpenNewInstance;
+            else
+                ScriptFileDoubleClickBehaviour = (ScriptFileDoubleClickBehaviour)int.Parse(scriptFileDoubleClickBehaviour);
         }
 
         private void LoadGenericSettings()
