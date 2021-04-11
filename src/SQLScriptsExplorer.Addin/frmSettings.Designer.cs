@@ -29,8 +29,8 @@ namespace SQLScriptsExplorer.Addin
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cboParserVersion = new System.Windows.Forms.ComboBox();
             this.lblGeneralSettings = new System.Windows.Forms.Label();
             this.lblSQLScriptsFolder = new System.Windows.Forms.Label();
@@ -54,7 +54,7 @@ namespace SQLScriptsExplorer.Addin
             this.tbpFolderMapping = new System.Windows.Forms.TabPage();
             this.lblFolderMapping = new System.Windows.Forms.Label();
             this.lblSeparator1 = new System.Windows.Forms.Label();
-            this.tbpUserInterface = new System.Windows.Forms.TabPage();
+            this.tbpFileExplorer = new System.Windows.Forms.TabPage();
             this.lblFileDoubleClick = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblScriptExecution = new System.Windows.Forms.Label();
@@ -63,7 +63,7 @@ namespace SQLScriptsExplorer.Addin
             ((System.ComponentModel.ISupportInitialize)(this.gdvFolderMapping)).BeginInit();
             this.tbcMain.SuspendLayout();
             this.tbpFolderMapping.SuspendLayout();
-            this.tbpUserInterface.SuspendLayout();
+            this.tbpFileExplorer.SuspendLayout();
             this.tbpGeneral.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -155,9 +155,9 @@ namespace SQLScriptsExplorer.Addin
             // Valid
             // 
             this.Valid.DataPropertyName = "IsValid";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.NullValue = "Error";
-            this.Valid.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.NullValue = "Error";
+            this.Valid.DefaultCellStyle = dataGridViewCellStyle7;
             this.Valid.HeaderText = "Valid";
             this.Valid.Name = "Valid";
             this.Valid.Width = 40;
@@ -165,9 +165,9 @@ namespace SQLScriptsExplorer.Addin
             // dataGridViewImageColumn1
             // 
             this.dataGridViewImageColumn1.DataPropertyName = "IsValid";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.NullValue = "Error";
-            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.NullValue = "Error";
+            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridViewImageColumn1.HeaderText = "Valid";
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             this.dataGridViewImageColumn1.Width = 40;
@@ -242,9 +242,9 @@ namespace SQLScriptsExplorer.Addin
             this.chkShowExecuteFileButton.AutoSize = true;
             this.chkShowExecuteFileButton.Location = new System.Drawing.Point(49, 44);
             this.chkShowExecuteFileButton.Name = "chkShowExecuteFileButton";
-            this.chkShowExecuteFileButton.Size = new System.Drawing.Size(230, 17);
+            this.chkShowExecuteFileButton.Size = new System.Drawing.Size(259, 17);
             this.chkShowExecuteFileButton.TabIndex = 2;
-            this.chkShowExecuteFileButton.Text = "Show \'Execute\' option in File Context Menu";
+            this.chkShowExecuteFileButton.Text = "Show \'Execute\' menu option in File Context Menu";
             this.chkShowExecuteFileButton.UseVisualStyleBackColor = true;
             this.chkShowExecuteFileButton.CheckedChanged += new System.EventHandler(this.chkShowExecuteFileButton_CheckedChanged);
             // 
@@ -253,15 +253,15 @@ namespace SQLScriptsExplorer.Addin
             this.chkConfirmScriptExecution.AutoSize = true;
             this.chkConfirmScriptExecution.Location = new System.Drawing.Point(49, 67);
             this.chkConfirmScriptExecution.Name = "chkConfirmScriptExecution";
-            this.chkConfirmScriptExecution.Size = new System.Drawing.Size(283, 17);
+            this.chkConfirmScriptExecution.Size = new System.Drawing.Size(257, 17);
             this.chkConfirmScriptExecution.TabIndex = 3;
-            this.chkConfirmScriptExecution.Text = "Confirm script execution when using File Context Menu";
+            this.chkConfirmScriptExecution.Text = "Display confirmation dialog when executing script";
             this.chkConfirmScriptExecution.UseVisualStyleBackColor = true;
             // 
             // tbcMain
             // 
             this.tbcMain.Controls.Add(this.tbpFolderMapping);
-            this.tbcMain.Controls.Add(this.tbpUserInterface);
+            this.tbcMain.Controls.Add(this.tbpFileExplorer);
             this.tbcMain.Controls.Add(this.tbpGeneral);
             this.tbcMain.Location = new System.Drawing.Point(16, 17);
             this.tbcMain.Name = "tbcMain";
@@ -301,32 +301,32 @@ namespace SQLScriptsExplorer.Addin
             this.lblSeparator1.Size = new System.Drawing.Size(470, 2);
             this.lblSeparator1.TabIndex = 1;
             // 
-            // tbpUserInterface
+            // tbpFileExplorer
             // 
-            this.tbpUserInterface.Controls.Add(this.lblFileDoubleClick);
-            this.tbpUserInterface.Controls.Add(this.label2);
-            this.tbpUserInterface.Controls.Add(this.lblScriptExecution);
-            this.tbpUserInterface.Controls.Add(this.chkConfirmScriptExecution);
-            this.tbpUserInterface.Controls.Add(this.lblSeparator3);
-            this.tbpUserInterface.Controls.Add(this.chkShowExecuteFileButton);
-            this.tbpUserInterface.Controls.Add(this.cboFileDoubleClick);
-            this.tbpUserInterface.Controls.Add(this.lblFileDoubleClickBehaviour);
-            this.tbpUserInterface.Location = new System.Drawing.Point(4, 22);
-            this.tbpUserInterface.Name = "tbpUserInterface";
-            this.tbpUserInterface.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpUserInterface.Size = new System.Drawing.Size(648, 310);
-            this.tbpUserInterface.TabIndex = 1;
-            this.tbpUserInterface.Text = "User Interface";
-            this.tbpUserInterface.UseVisualStyleBackColor = true;
+            this.tbpFileExplorer.Controls.Add(this.lblFileDoubleClick);
+            this.tbpFileExplorer.Controls.Add(this.label2);
+            this.tbpFileExplorer.Controls.Add(this.lblScriptExecution);
+            this.tbpFileExplorer.Controls.Add(this.chkConfirmScriptExecution);
+            this.tbpFileExplorer.Controls.Add(this.lblSeparator3);
+            this.tbpFileExplorer.Controls.Add(this.chkShowExecuteFileButton);
+            this.tbpFileExplorer.Controls.Add(this.cboFileDoubleClick);
+            this.tbpFileExplorer.Controls.Add(this.lblFileDoubleClickBehaviour);
+            this.tbpFileExplorer.Location = new System.Drawing.Point(4, 22);
+            this.tbpFileExplorer.Name = "tbpFileExplorer";
+            this.tbpFileExplorer.Padding = new System.Windows.Forms.Padding(3);
+            this.tbpFileExplorer.Size = new System.Drawing.Size(648, 310);
+            this.tbpFileExplorer.TabIndex = 1;
+            this.tbpFileExplorer.Text = "File Explorer";
+            this.tbpFileExplorer.UseVisualStyleBackColor = true;
             // 
             // lblFileDoubleClick
             // 
             this.lblFileDoubleClick.AutoSize = true;
             this.lblFileDoubleClick.Location = new System.Drawing.Point(21, 103);
             this.lblFileDoubleClick.Name = "lblFileDoubleClick";
-            this.lblFileDoubleClick.Size = new System.Drawing.Size(86, 13);
+            this.lblFileDoubleClick.Size = new System.Drawing.Size(116, 13);
             this.lblFileDoubleClick.TabIndex = 6;
-            this.lblFileDoubleClick.Text = "File Double-Click";
+            this.lblFileDoubleClick.Text = "Script File Double-Click";
             // 
             // label2
             // 
@@ -390,8 +390,8 @@ namespace SQLScriptsExplorer.Addin
             this.tbcMain.ResumeLayout(false);
             this.tbpFolderMapping.ResumeLayout(false);
             this.tbpFolderMapping.PerformLayout();
-            this.tbpUserInterface.ResumeLayout(false);
-            this.tbpUserInterface.PerformLayout();
+            this.tbpFileExplorer.ResumeLayout(false);
+            this.tbpFileExplorer.PerformLayout();
             this.tbpGeneral.ResumeLayout(false);
             this.tbpGeneral.PerformLayout();
             this.ResumeLayout(false);
@@ -420,7 +420,7 @@ namespace SQLScriptsExplorer.Addin
         private System.Windows.Forms.CheckBox chkConfirmScriptExecution;
         private System.Windows.Forms.TabControl tbcMain;
         private System.Windows.Forms.TabPage tbpFolderMapping;
-        private System.Windows.Forms.TabPage tbpUserInterface;
+        private System.Windows.Forms.TabPage tbpFileExplorer;
         private System.Windows.Forms.TabPage tbpGeneral;
         internal System.Windows.Forms.Label lblFolderMapping;
         private System.Windows.Forms.Label lblSeparator1;
