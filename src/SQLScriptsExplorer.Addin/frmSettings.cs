@@ -1,4 +1,5 @@
 ﻿using SQLScriptsExplorer.Addin.Models;
+using SQLScriptsExplorer.Addin.Models.Enums;
 using SQLScriptsExplorer.Addin.Repository;
 using SQLScriptsExplorer.Addin.Repository.Interfaces;
 using System.ComponentModel;
@@ -29,11 +30,13 @@ namespace SQLScriptsExplorer.Addin
 
             chkExpandOnLoad.Checked = settingsRepository.ExpandMappedFoldersOnLoad;
 
-            // User Interface
+            // File Explorer
             chkShowExecuteFileButton.Checked = settingsRepository.ShowExecuteFileButton;
             chkConfirmScriptExecution.Checked = settingsRepository.ConfirmScriptExecution;
 
             chkShowExecuteFileButton_CheckedChanged(null, System.EventArgs.Empty);
+
+            cboFileDoubleClick.SelectedIndex = (int)settingsRepository.ScriptFileDoubleClickBehaviour;
 
             // General
             cboParserVersion.SelectedItem = settingsRepository.SQLParserVersion;
@@ -48,9 +51,11 @@ namespace SQLScriptsExplorer.Addin
             settingsRepository.FolderMapping = folderMappingBindingList.ToList();
             settingsRepository.ExpandMappedFoldersOnLoad = chkExpandOnLoad.Checked;
 
-            // User Interface
+            // File Explorer
             settingsRepository.ShowExecuteFileButton = chkShowExecuteFileButton.Checked;
             settingsRepository.ConfirmScriptExecution = chkConfirmScriptExecution.Checked;
+
+            settingsRepository.ScriptFileDoubleClickBehaviour = (ScriptFileDoubleClickBehaviour)cboFileDoubleClick.SelectedIndex;
 
             // General
             settingsRepository.SQLParserVersion = cboParserVersion.SelectedItem.ToString();
