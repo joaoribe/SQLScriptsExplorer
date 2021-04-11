@@ -48,7 +48,12 @@ namespace SQLScriptsExplorer.Addin.Controls
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                mnuOpenNewInstance_Click(sender, null);
+                ISettingsRepository settingsRepository = new SettingsRepository();
+
+                if (settingsRepository.ScriptFileDoubleClickBehaviour == ScriptFileDoubleClickBehaviour.OpenNewInstance)
+                    mnuOpenNewInstance_Click(sender, null);
+                else
+                    mnuEditFile_Click(sender, null);
             }
 
             e.Handled = true;
