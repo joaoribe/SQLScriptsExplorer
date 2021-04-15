@@ -23,7 +23,12 @@
 			<li><a href="#debugging">Debugging</a></li>
 		</ul>
 	</li>
-	<li><a href="#known-issues">Known Issues</a></li>
+	<li><a href="#known-issues">Known Issues</a>
+		<ul>
+			<li><a href="#extesion-does-not-load">Extension does not Load</a></li>
+			<li><a href="#docking-issue">Docking Issue</a></li>
+		</ul>
+	</li>
 </ul>
 
 <!-- GETTING STARTED -->
@@ -111,6 +116,11 @@
 
 <!-- KNOWN ISSUES -->
 <h1>Known Issues</h1>
+<h2>Extension does not Load</h2>
+<p>Sometimes when you download the release zip file, Windows blocks it for security reasons. If you get an error after the plugin installation or the plugin does not appear in Microsoft SQL Server Management Studio 18, ensure the release ZIP file you have downloaded is unblocked.</p>
+<br/>
+<img src="docs/images/UnblockFile.png"/>
+
 <h2>Docking Issue</h2>
 <p><b>Note:</b> Issue is related to Windows and .NET Framework, not the addin.</p>
 <p>There's an issue with docking any Toolbar in Microsoft SQL Server Management Studio 18. Here are two options to solve it:</p>
