@@ -25,7 +25,7 @@
 	</li>
 	<li><a href="#known-issues">Known Issues</a>
 		<ul>
-			<li><a href="#extesion-does-not-load">Extension does not Load</a></li>
+			<li><a href="#extension-does-not-load">Extension does not Load</a></li>
 			<li><a href="#docking-issue">Docking Issue</a></li>
 		</ul>
 	</li>
