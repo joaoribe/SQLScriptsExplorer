@@ -118,7 +118,6 @@
 <h1>Known Issues</h1>
 <h2>Extension does not Load</h2>
 <p>Sometimes when you download the release zip file, Windows blocks it for security reasons. If you get an error after the plugin installation or the plugin does not appear in Microsoft SQL Server Management Studio 18, ensure the release ZIP file you have downloaded is unblocked.</p>
-<br/>
 <img src="docs/images/UnblockFile.png"/>
 
 <h2>Docking Issue</h2>
