@@ -109,7 +109,8 @@ namespace SQLScriptsExplorer.Addin.Repository
         public List<TreeNode> Search(string keyword)
         {
             // Use current search Tree to perform further searches
-            if (previousSearchKeyword.StartsWith(keyword))
+            if (!string.IsNullOrWhiteSpace(keyword) && !string.IsNullOrWhiteSpace(previousSearchKeyword) &&
+                keyword.StartsWith(previousSearchKeyword))
             {
                 TreeSearchResult = TreeSearchResult.Clone();
             }
