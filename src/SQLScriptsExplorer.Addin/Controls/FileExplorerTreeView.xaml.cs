@@ -37,6 +37,9 @@ namespace SQLScriptsExplorer.Addin.Controls
         private TreeNode currentTreeNode;
         private TreeViewItem currentTreeViewItem;
 
+        private TreeNode potentialCurrentTreeNode;
+        private TreeViewItem potentialCurrentTreeViewItem;
+
         public string Filter { get; set; }
 
         public FileExplorerTreeView()
@@ -48,12 +51,18 @@ namespace SQLScriptsExplorer.Addin.Controls
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                ISettingsRepository settingsRepository = new SettingsRepository();
+                var doubleClickedTreeViewItem = VisualUpwardSearchTreeViewItem(e.OriginalSource as DependencyObject);
+                var doubleClickedTreeNode = doubleClickedTreeViewItem.DataContext as TreeNode;
 
-                if (settingsRepository.ScriptFileDoubleClickBehaviour == ScriptFileDoubleClickBehaviour.OpenNewInstance)
-                    mnuOpenNewInstance_Click(sender, null);
-                else
-                    mnuEditFile_Click(sender, null);
+                if (doubleClickedTreeNode.Type == TreeNodeType.File && currentTreeNode.Id.Equals(doubleClickedTreeNode.Id))
+                {
+                    ISettingsRepository settingsRepository = new SettingsRepository();
+
+                    if (settingsRepository.ScriptFileDoubleClickBehaviour == ScriptFileDoubleClickBehaviour.OpenNewInstance)
+                        mnuOpenNewInstance_Click(sender, null);
+                    else
+                        mnuEditFile_Click(sender, null);
+                }
             }
 
             e.Handled = true;
@@ -72,6 +81,15 @@ namespace SQLScriptsExplorer.Addin.Controls
 
             if (selectedTreeNode != null)
             {
+                if (potentialCurrentTreeNode != null && selectedTreeNode.Id.Equals(potentialCurrentTreeNode.Id))
+                {
+                    currentTreeNode = potentialCurrentTreeNode;
+                    currentTreeViewItem = potentialCurrentTreeViewItem;
+
+                    potentialCurrentTreeNode = null;
+                    potentialCurrentTreeViewItem = null;
+                }
+
                 switch (selectedTreeNode.Type)
                 {
                     case TreeNodeType.File:
@@ -111,10 +129,10 @@ namespace SQLScriptsExplorer.Addin.Controls
 
         private void TreeViewMain_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            currentTreeViewItem = VisualUpwardSearchTreeViewItem(e.OriginalSource as DependencyObject);
+            potentialCurrentTreeViewItem = VisualUpwardSearchTreeViewItem(e.OriginalSource as DependencyObject);
 
-            currentTreeNode = currentTreeViewItem != null ?
-                currentTreeViewItem.DataContext as TreeNode : null;
+            potentialCurrentTreeNode = potentialCurrentTreeViewItem != null ?
+                potentialCurrentTreeViewItem.DataContext as TreeNode : null;
 
             // In case changing focus to a different node while renaming file
             if (currentTreeNode != null && isEditMode && currentTreeNode.Id != renamingNodeId)
