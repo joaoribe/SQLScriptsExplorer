@@ -68,7 +68,7 @@
 <img src="docs/images/OrganizeScripts.png"/>
 
 <h2>Open, create and edit SQL Script files</h2>
-<p>Use the explorer to manage your scripts without living your worksapce.</p>
+<p>Use the explorer to manage your scripts without living your workspace.</p>
 <img src="docs/images/CreateAndEditFile.gif"/>
 
 <h2>Search SQL Scripts across repositories</h2>
