@@ -22,7 +22,12 @@ namespace SQLScriptsExplorer.Addin.Infrastructure
 
             try
             {
-                value = RootRegistry.GetValue(name).ToString();
+                var registryValue = RootRegistry.GetValue(name);
+
+                if (registryValue == null)
+                    return string.Empty;
+
+                value = registryValue.ToString();
             }
             catch { }
 
