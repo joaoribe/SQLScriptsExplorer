@@ -1,5 +1,5 @@
 <h1>SQL Scripts Explorer</h1>
-<p>Microsoft SQL Server Management Studio 18 extension to open, create, edit, organize, search and share SQL Scripts. Its purpose is to allow quick access to scripts that are frequently used.</p>
+<p>Microsoft SQL Server Management Studio 20 extension to open, create, edit, organize, search and share SQL Scripts. Its purpose is to allow quick access to scripts that are frequently used.</p>
 <h2>Contents</h2>
 <ul>
 	<li><a href="#getting-started">Getting Started</a>
@@ -36,16 +36,16 @@
 
 <h2>Requirements</h2>
 <ul>
-	<li>Microsoft SQL Server Management Studio 18 (<i>not tested in previous versions</i>)</li>
-	<li>.NET 4.7.2</li>
+	<li>Microsoft SQL Server Management Studio 20 (<i>supposed to support versions 13-20, only tested in 18 and 20</i>)</li>
+	<li>.NET 4.8.1</li>
 </ul>
 <h2>Installation</h2>
 <ul>
-	<li>Close all instances of Microsoft SQL Server Management Studio 18</li>
+	<li>Close all instances of Microsoft SQL Server Management Studio 20</li>
 	<li>Download the most recent <a href="https://github.com/joaoribe/SQLScriptsExplorer/releases/latest">release</a></li>
 	<li>Add release folder <i>SQLScriptsExplorer</i> to
 		<br/>
-		<code>C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Extensions</code>
+		<code>C:\Program Files (x86)\Microsoft SQL Server Management Studio 20\Common7\IDE\Extensions</code>
 		<br/>
 		<img src="docs/images/InstallationFolder.png"/>
 	</li>
@@ -85,11 +85,11 @@
 
 <h2>Debugging</h2>
 <ul>
-	<li>Install Visual Studio 2019 with <i>Visual Studio Extension Development</i> enabled
+	<li>Install Visual Studio 2022 with <i>Visual Studio Extension Development</i> enabled
 		<br/>
 		<img src="docs/images/VisualStudioExtensionDevelopment.png"/>
 	</li>
-	<li>Open solution in Visual Studio 2019 in Administrator Mode</li>
+	<li>Open solution in Visual Studio 2022 in Administrator Mode</li>
 	<li>Right click the project <i>SQLScriptsExplorer.Addin</i></li>
 	<li>Select <i>Debug</i> tab</li>
 	<ul>
