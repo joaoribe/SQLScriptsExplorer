@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace SQLScriptsExplorer.Addin.Commands.ToolWindow
 {
@@ -16,8 +17,13 @@ namespace SQLScriptsExplorer.Addin.Commands.ToolWindow
     /// </summary>
     public partial class MainToolWindowControl : UserControl
     {
-        ISettingsRepository settingsRepository = null;
-        ITreeNodeRepository treeNodeRepository = null;
+        private ISettingsRepository settingsRepository = null;
+        private ITreeNodeRepository treeNodeRepository = null;
+
+        // DispatcherTimer to debounce the search
+        private DispatcherTimer searchTimer = null;
+        // You can adjust how long to wait before performing the search (e.g., 500ms)
+        private readonly TimeSpan SearchDelay = TimeSpan.FromMilliseconds(300);
 
         public bool IsSearchResultsView
         {
@@ -33,6 +39,11 @@ namespace SQLScriptsExplorer.Addin.Commands.ToolWindow
 
             settingsRepository = new SettingsRepository();
             treeNodeRepository = new TreeNodeRepository();
+
+            // Initialize the search debounce timer
+            searchTimer = new DispatcherTimer();
+            searchTimer.Interval = SearchDelay;
+            searchTimer.Tick += SearchTimer_Tick;
 
             RefreshTreeView();
         }
@@ -55,7 +66,8 @@ namespace SQLScriptsExplorer.Addin.Commands.ToolWindow
 
             if (IsSearchResultsView)
             {
-                txtSearch_KeyUp(sender, null);
+                // If currently in Search view, re-run the search after refresh
+                PerformSearch();
             }
         }
 
@@ -77,13 +89,11 @@ namespace SQLScriptsExplorer.Addin.Commands.ToolWindow
             if (IsSearchResultsView)
             {
                 TreeViewHelper.CollapseTreeView(treeNodeRepository.TreeSearchResult);
-
                 FileExplorerSearchResults.RefreshTreeView();
             }
             else
             {
                 TreeViewHelper.CollapseTreeView(treeNodeRepository.Tree);
-
                 FileExplorerAll.RefreshTreeView();
             }
         }
@@ -93,13 +103,11 @@ namespace SQLScriptsExplorer.Addin.Commands.ToolWindow
             if (IsSearchResultsView)
             {
                 TreeViewHelper.ExpandTreeView(treeNodeRepository.TreeSearchResult);
-
                 FileExplorerSearchResults.RefreshTreeView();
             }
             else
             {
                 TreeViewHelper.ExpandTreeView(treeNodeRepository.Tree);
-
                 FileExplorerAll.RefreshTreeView();
             }
         }
@@ -129,7 +137,30 @@ namespace SQLScriptsExplorer.Addin.Commands.ToolWindow
             FileExplorerAll.RefreshTreeView();
         }
 
+        /// <summary>
+        /// KeyUp event: we reset/restart the timer, so that we only search
+        /// after user stops typing for a brief moment.
+        /// </summary>
         private void txtSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            // Stop and restart the timer each time a key is pressed.
+            searchTimer.Stop();
+            searchTimer.Start();
+        }
+
+        /// <summary>
+        /// Called when the search timer elapses (no more key presses for the set interval).
+        /// </summary>
+        private void SearchTimer_Tick(object sender, EventArgs e)
+        {
+            searchTimer.Stop(); // Prevent multiple triggers
+            PerformSearch();
+        }
+
+        /// <summary>
+        /// Actually performs the search in the repository, updates the UI accordingly.
+        /// </summary>
+        private void PerformSearch()
         {
             if (!string.IsNullOrWhiteSpace(txtSearch.Text))
             {
@@ -151,6 +182,7 @@ namespace SQLScriptsExplorer.Addin.Commands.ToolWindow
                 FileExplorerAll.Visibility = Visibility.Visible;
             }
 
+            // Update Filter property
             FileExplorerSearchResults.Filter = txtSearch.Text;
         }
 
@@ -162,7 +194,10 @@ namespace SQLScriptsExplorer.Addin.Commands.ToolWindow
             var treeNode = treeNodeSearchResults.Clone(treeNodeParent);
 
             treeNodeParent.Children.Add(treeNode);
-            treeNodeParent.Children = treeNodeParent.Children.OrderBy(p => p.Type).ThenBy(p => p.FileName).ToList();
+            treeNodeParent.Children = treeNodeParent.Children
+                .OrderBy(p => p.Type)
+                .ThenBy(p => p.FileName)
+                .ToList();
 
             FileExplorerAll.DataSourceDictionary.Add(treeNode.Id, treeNode);
 
@@ -175,7 +210,6 @@ namespace SQLScriptsExplorer.Addin.Commands.ToolWindow
             var treeNode = FileExplorerAll.DataSourceDictionary[treeNodeSearchResults.Id];
 
             treeNode.Parent.Children.Remove(treeNode);
-
             FileExplorerAll.DataSourceDictionary.Remove(treeNode.Id);
 
             FileExplorerAll.RefreshTreeView();
@@ -189,7 +223,10 @@ namespace SQLScriptsExplorer.Addin.Commands.ToolWindow
             treeNode.FileName = treeNodeSearchResults.FileName;
             treeNode.FileFullPath = treeNodeSearchResults.FileFullPath;
 
-            treeNode.Parent.Children = treeNode.Parent.Children.OrderBy(p => p.Type).ThenBy(p => p.FileName).ToList();
+            treeNode.Parent.Children = treeNode.Parent.Children
+                .OrderBy(p => p.Type)
+                .ThenBy(p => p.FileName)
+                .ToList();
 
             FileExplorerAll.RefreshTreeView();
         }
