@@ -8,39 +8,63 @@
              xmlns:domain="clr-namespace:SQLScriptsExplorer.Addin.Models"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <!--<UserControl.Resources>
-        <converter:SortableConverter x:Key="sortableConverter" />
-    </UserControl.Resources>-->
     <Grid>
 
-        <TreeView Name="TreeViewMain" ItemsSource="{Binding}" KeyDown="TreeViewMain_KeyDown" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseDoubleClick="TreeViewMain_MouseDoubleClick" BorderThickness="0" SelectedItemChanged="TreeViewMain_SelectedItemChanged" PreviewMouseRightButtonDown="TreeViewMain_PreviewMouseRightButtonDown" PreviewMouseLeftButtonDown="TreeViewMain_PreviewMouseLeftButtonDown" ContextMenuOpening="TreeViewMain_ContextMenuOpening">
+        <!--
+          ADDED:
+          1) AllowDrop="True"
+          2) PreviewMouseLeftButtonDown, PreviewMouseMove, DragOver, Drop
+        -->
+        <TreeView Name="TreeViewMain"
+                  ItemsSource="{Binding}"
+                  KeyDown="TreeViewMain_KeyDown"
+                  MouseDoubleClick="TreeViewMain_MouseDoubleClick"
+                  SelectedItemChanged="TreeViewMain_SelectedItemChanged"
+                  PreviewMouseRightButtonDown="TreeViewMain_PreviewMouseRightButtonDown"
+                  ContextMenuOpening="TreeViewMain_ContextMenuOpening"
 
-            <!-- Converter={StaticResource sortableConverter}, ConverterParameter=FileName} -->
+                  AllowDrop="True"
+                  PreviewMouseLeftButtonDown="TreeViewMain_PreviewMouseLeftButtonDown"
+                  PreviewMouseMove="TreeViewMain_PreviewMouseMove"
+                  DragOver="TreeViewMain_DragOver"
+                  Drop="TreeViewMain_Drop"
+
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  BorderThickness="0">
+
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Children}" DataType="{x:Type domain:TreeNode}">
                     <StackPanel Orientation="Horizontal" Height="17">
                         <Image Width="16" Height="16" Margin="3,0,5,0" Source="{Binding Icon}" />
-                        <local:HighlightTextBlock Text="{Binding Path=FileName}" IsHitTestVisible="False" IsCaseSensitive="False" HighlightBrush="Khaki" HighlightPhrase="{Binding Path=HighlightPhrase, Mode=TwoWay}" />
-                        <TextBox x:Name="txtRename" Text="{Binding FileName, Mode=TwoWay}" HorizontalAlignment="Center"  
-                                 Width="Auto" Visibility="Collapsed" KeyDown="txtRename_KeyDown" LostFocus="txtRename_LostFocus" />
+                        <local:HighlightTextBlock Text="{Binding Path=FileName}" 
+                                                  IsHitTestVisible="False"
+                                                  IsCaseSensitive="False"
+                                                  HighlightBrush="Khaki"
+                                                  HighlightPhrase="{Binding Path=HighlightPhrase, Mode=TwoWay}" />
+                        <TextBox x:Name="txtRename" Text="{Binding FileName, Mode=TwoWay}"
+                                 HorizontalAlignment="Center"
+                                 Width="Auto"
+                                 Visibility="Collapsed"
+                                 KeyDown="txtRename_KeyDown"
+                                 LostFocus="txtRename_LostFocus" />
                     </StackPanel>
                 </HierarchicalDataTemplate>
-                
             </TreeView.ItemTemplate>
 
-            <!-- This is conflicting with the code to select the whole row -->
-            <!--<TreeView.ItemContainerStyle>
+            <!-- Optionally, you can set up an ItemContainerStyle here if needed -->
+            <!-- 
+            <TreeView.ItemContainerStyle>
                 <Style TargetType="TreeViewItem">
                     <Setter Property="TreeViewItem.IsExpanded" Value="{Binding IsExpanded,Mode=TwoWay}"/>
                 </Style>
-                
-            </TreeView.ItemContainerStyle>-->
+            </TreeView.ItemContainerStyle>
+            -->
 
-            <!--<ResourceDictionary Source="FileExplorerResourceDictionary.xaml" />-->
-            
             <TreeView.Resources>
 
-                <ContextMenu x:Key ="FileContext" StaysOpen="true" >
+                <!-- Context Menus for File / Folder / RootFolder -->
+                <ContextMenu x:Key="FileContext" StaysOpen="true" >
                     <MenuItem Header="Open New Instance" Click="mnuOpenNewInstance_Click">
                         <MenuItem.Icon>
                             <Image Source="../Resources/Images/OpenFile.png"/>
@@ -69,6 +93,7 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </ContextMenu>
+
                 <ContextMenu x:Key="FolderContext" StaysOpen="true">
                     <MenuItem Header="New">
                         <MenuItem Header="File" Click="mnuNewFile_Click">
@@ -95,6 +120,7 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </ContextMenu>
+
                 <ContextMenu x:Key="RootFolderContext" StaysOpen="true">
                     <MenuItem Header="New">
                         <MenuItem Header="File" Click="mnuNewFile_Click">
@@ -111,12 +137,8 @@
                     </MenuItem>
                 </ContextMenu>
 
-                <!--=================================================================
-                     TreeViewItem
-                  ==================================================================-->
-
+                <!-- Optional styling for TreeViewItem, expand/collapse, highlight, etc. -->
                 <SolidColorBrush x:Key="GlyphBrush" Color="#444" />
-                
                 <Style x:Key="ExpandCollapseToggleStyle" TargetType="ToggleButton">
                     <Setter Property="Focusable" Value="False"/>
                     <Setter Property="Template">
@@ -124,10 +146,11 @@
                             <ControlTemplate TargetType="ToggleButton">
                                 <Grid Width="15" Height="13" Background="Transparent">
                                     <Path x:Name="ExpandPath"
-                                        HorizontalAlignment="Left" 
-                                        VerticalAlignment="Center" 
-                                        Margin="1,1,1,1"
-                                        Fill="{StaticResource GlyphBrush}" Data="M 4 0 L 8 4 L 4 8 Z"/>
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Center"
+                                          Margin="1,1,1,1"
+                                          Fill="{StaticResource GlyphBrush}"
+                                          Data="M 4 0 L 8 4 L 4 8 Z"/>
                                 </Grid>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsChecked" Value="True">
@@ -138,17 +161,17 @@
                         </Setter.Value>
                     </Setter>
                 </Style>
-                
+
                 <Style x:Key="TreeViewItemFocusVisual">
                     <Setter Property="Control.Template">
                         <Setter.Value>
                             <ControlTemplate>
                                 <Border>
                                     <Rectangle Margin="0,0,0,0"
-                                         StrokeThickness="5"
-                                         Stroke="Black"
-                                         StrokeDashArray="1 2"
-                                         Opacity="0"/>
+                                               StrokeThickness="5"
+                                               Stroke="Black"
+                                               StrokeDashArray="1 2"
+                                               Opacity="0"/>
                                 </Border>
                             </ControlTemplate>
                         </Setter.Value>
@@ -156,13 +179,13 @@
                 </Style>
 
                 <Style x:Key="{x:Type TreeViewItem}" TargetType="{x:Type TreeViewItem}">
-                    <!-- Bind two ways for IsExpanded property -->
                     <Setter Property="TreeViewItem.IsExpanded" Value="{Binding IsExpanded,Mode=TwoWay}"/>
                     <Setter Property="TreeViewItem.IsSelected" Value="{Binding IsSelected,Mode=TwoWay}"/>
-                
                     <Setter Property="Background" Value="Transparent"/>
-                    <Setter Property="HorizontalContentAlignment" Value="{Binding Path=HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-                    <Setter Property="VerticalContentAlignment" Value="{Binding Path=VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                    <Setter Property="HorizontalContentAlignment" 
+                            Value="{Binding Path=HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                    <Setter Property="VerticalContentAlignment" 
+                            Value="{Binding Path=VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
                     <Setter Property="Padding" Value="1,0,0,0"/>
                     <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
                     <Setter Property="FocusVisualStyle" Value="{StaticResource TreeViewItemFocusVisual}"/>
@@ -173,16 +196,24 @@
                                     <converter:LeftMarginMultiplierConverter Length="19" x:Key="lengthConverter" />
                                 </ControlTemplate.Resources>
                                 <StackPanel>
-                                    <Border Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
-                                            BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
+                                    <Border Name="Bd"
+                                            Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            Padding="{TemplateBinding Padding}">
                                         <Grid Margin="{Binding Converter={StaticResource lengthConverter}, RelativeSource={RelativeSource TemplatedParent}}">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="19" />
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
-                                            <ToggleButton x:Name="Expander" Style="{StaticResource ExpandCollapseToggleStyle}" IsChecked="{Binding Path=IsExpanded, 
-                                                RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press"/>
-                                            <ContentPresenter x:Name="PART_Header" Grid.Column="1" ContentSource="Header" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                                            <ToggleButton x:Name="Expander"
+                                                          Style="{StaticResource ExpandCollapseToggleStyle}"
+                                                          IsChecked="{Binding Path=IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
+                                                          ClickMode="Press"/>
+                                            <ContentPresenter x:Name="PART_Header"
+                                                              Grid.Column="1"
+                                                              ContentSource="Header"
+                                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
                                         </Grid>
                                     </Border>
                                     <ItemsPresenter x:Name="ItemsHost" />
@@ -230,7 +261,6 @@
                 </Style>
 
             </TreeView.Resources>
-
         </TreeView>
     </Grid>
 </UserControl>
