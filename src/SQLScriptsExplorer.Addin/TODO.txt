@@ -5,3 +5,7 @@
     * Remove message when trying to drag n' drop to a file (just don't do it)
 # Others
     * Just after adding a file and trying to use F2 to rename it, it's throwing an exception
+# Search
+    * Do not block UI while searching
+    * Cancel current search if new letter is typed?
+    * Add spinning wheel or some sort of user feedback when search starts
