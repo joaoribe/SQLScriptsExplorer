@@ -1,0 +1,7 @@
+﻿# Drag n' Drop
+    * Disable drag'n drop for top level folders
+    * Show "block" icon when try to drag'n drop to files
+    * Remove message when trying to drag n' drop to the same folder (just don't do it)
+    * Remove message when trying to drag n' drop to a file (just don't do it)
+# Others
+    * Just after adding a file and trying to use F2 to rename it, it's throwing an exception

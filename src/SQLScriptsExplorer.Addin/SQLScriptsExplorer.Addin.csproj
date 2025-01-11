@@ -224,6 +224,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="TODO.txt" />
     <VSCTCompile Include="Commands\Toolbar\MainToolbarCommandPackage.vsct">
       <ResourceName>Menus1.ctmenu</ResourceName>
     </VSCTCompile>
