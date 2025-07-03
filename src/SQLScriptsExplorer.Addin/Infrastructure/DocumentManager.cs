@@ -34,7 +34,7 @@ namespace SQLScriptsExplorer.Addin.Infrastructure
                     var docName = Path.GetFileNameWithoutExtension(fileName);
                     var docExtension = Path.GetExtension(fileName);
 
-                    var fileDocument = DTE.ItemOperations.NewFile(@"General\Text File", $"{docName}_Copy.{docExtension}").Document;
+                    var fileDocument = DTE.ItemOperations.NewFile(@"General\Text File", $"{docName}_Copy{docExtension}").Document;
 
                     TextSelection textSelection = fileDocument.Selection as TextSelection;
                     textSelection.SelectAll();
