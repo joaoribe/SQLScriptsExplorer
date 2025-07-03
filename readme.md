@@ -1,5 +1,5 @@
 <h1>SQL Scripts Explorer</h1>
-<p>Microsoft SQL Server Management Studio 20 extension to open, create, edit, organize, search and share SQL Scripts. Its purpose is to allow quick access to scripts that are frequently used.</p>
+<p>Microsoft SQL Server Management Studio 21 extension to open, create, edit, organize, search and share SQL Scripts. Its purpose is to allow quick access to scripts that are frequently used.</p>
 <h2>Contents</h2>
 <ul>
 	<li><a href="#getting-started">Getting Started</a>
@@ -36,14 +36,18 @@
 
 <h2>Requirements</h2>
 <ul>
-	<li>Microsoft SQL Server Management Studio 20 (<i>supposed to support versions 13-20, only tested in 18 and 20</i>)</li>
+	<li>Microsoft SQL Server Management Studio 21 (<i>supposed to support versions 13-21, only tested in 18, 20 and 21</i>)</li>
 	<li>.NET 4.8.1</li>
 </ul>
 <h2>Installation</h2>
 <ul>
-	<li>Close all instances of Microsoft SQL Server Management Studio 20</li>
+	<li>Close all instances of Microsoft SQL Server Management Studio 21</li>
 	<li>Download the most recent <a href="https://github.com/joaoribe/SQLScriptsExplorer/releases/latest">release</a></li>
 	<li>Add release folder <i>SQLScriptsExplorer</i> to
+		<br/>
+		<code>C:\Program Files\Microsoft SQL Server Management Studio 21\Release\Common7\IDE\Extensions</code>
+	</li>
+	<li><b>Note:</b> adjust the extension path based on the SSMS you are using e.g. SSMS 20
 		<br/>
 		<code>C:\Program Files (x86)\Microsoft SQL Server Management Studio 20\Common7\IDE\Extensions</code>
 		<br/>
@@ -95,7 +99,7 @@
 	<ul>
 		<li>In the <i>Start external program</i> option, change it to
 			<br/>
-			<code>C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\ssms.exe</code>
+			<code>C:\Program Files\Microsoft SQL Server Management Studio 21\Release\Common7\IDE\Ssms.exe</code>
 		</li>
 		<li>In the <i>Command line arguments</i> option, remove all the text
 			<br/>
@@ -106,7 +110,7 @@
 		<ul>
 			<li>Ensure <i>Copy VSIX content to the following location</i> is
 				<br/>
-				<code>C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE\Extensions\SQLScriptsExplorer</code>
+				<code>C:\Program Files\Microsoft SQL Server Management Studio 21\Release\Common7\IDE\Extensions\SQLScriptsExplorer</code>
 				<br/>
 				<img src="docs/images/ProjectProperties.VSIX.png"/>
 			</li>
