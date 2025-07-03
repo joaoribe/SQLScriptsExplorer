@@ -29,8 +29,8 @@ namespace SQLScriptsExplorer.Addin
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cboParserVersion = new System.Windows.Forms.ComboBox();
             this.lblGeneralSettings = new System.Windows.Forms.Label();
             this.lblSQLScriptsFolder = new System.Windows.Forms.Label();
@@ -72,6 +72,8 @@ namespace SQLScriptsExplorer.Addin
             this.cboParserVersion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboParserVersion.FormattingEnabled = true;
             this.cboParserVersion.Items.AddRange(new object[] {
+            "SQL Server 2025",
+            "SQL Server 2022",
             "SQL Server 2019",
             "SQL Server 2017",
             "SQL Server 2016"});
@@ -155,9 +157,9 @@ namespace SQLScriptsExplorer.Addin
             // Valid
             // 
             this.Valid.DataPropertyName = "IsValid";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.NullValue = "Error";
-            this.Valid.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.NullValue = "Error";
+            this.Valid.DefaultCellStyle = dataGridViewCellStyle1;
             this.Valid.HeaderText = "Valid";
             this.Valid.Name = "Valid";
             this.Valid.Width = 40;
@@ -165,9 +167,9 @@ namespace SQLScriptsExplorer.Addin
             // dataGridViewImageColumn1
             // 
             this.dataGridViewImageColumn1.DataPropertyName = "IsValid";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.NullValue = "Error";
-            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.NullValue = "Error";
+            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewImageColumn1.HeaderText = "Valid";
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             this.dataGridViewImageColumn1.Width = 40;

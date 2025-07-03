@@ -1,4 +1,5 @@
 ﻿using EnvDTE;
+using EnvDTE80;
 using Microsoft.SqlServer.TransactSql.ScriptDom;
 using Microsoft.VisualStudio.Shell;
 using SQLScriptsExplorer.Addin.Repository;
@@ -12,6 +13,15 @@ namespace SQLScriptsExplorer.Addin.Infrastructure
 {
     public static class DocumentManager
     {
+        private static DTE2 DTE      
+        {
+            get
+            {
+                ThreadHelper.ThrowIfNotOnUIThread();
+                return Package.GetGlobalService(typeof(DTE)) as DTE2;
+            }
+        }
+
         public static void OpenTemplate(string fileName, string fileFullPath)
         {
             try
@@ -21,9 +31,10 @@ namespace SQLScriptsExplorer.Addin.Infrastructure
                 if (File.Exists(fileFullPath))
                 {
                     string fileContent = File.ReadAllText(fileFullPath);
+                    var docName = Path.GetFileNameWithoutExtension(fileName);
+                    var docExtension = Path.GetExtension(fileName);
 
-                    DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
-                    var fileDocument = dte.ItemOperations.NewFile(@"General\Text File", fileName).Document;
+                    var fileDocument = DTE.ItemOperations.NewFile(@"General\Text File", $"{docName}_Copy{docExtension}").Document;
 
                     TextSelection textSelection = fileDocument.Selection as TextSelection;
                     textSelection.SelectAll();
@@ -48,12 +59,9 @@ namespace SQLScriptsExplorer.Addin.Infrastructure
         {
             try
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
-
                 if (File.Exists(fileFullPath))
                 {
-                    DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
-                    dte.ItemOperations.OpenFile(fileFullPath);
+                    DTE.ItemOperations.OpenFile(fileFullPath);
                 }
                 else
                 {
@@ -66,20 +74,16 @@ namespace SQLScriptsExplorer.Addin.Infrastructure
             }
         }
 
-        public static void ExecuteTemplate(string fileName, string fileFullPath, bool confirmScriptExecution)
+        public static void ExecuteTemplate(string fileName, string fileFullPath)
         {
             string CMD_QUERY_EXECUTE = "Query.Execute";
 
             try
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
-
-                DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
-
                 // Ensure the document we are executing is the document we have opened by checking its name
-                if (dte.ActiveDocument != null && dte.ActiveDocument.ProjectItem.Name.Equals(fileName))
+                if (DTE.ActiveDocument != null && DTE.ActiveDocument.ProjectItem.Name.Equals(fileName))
                 {
-                    dte.ExecuteCommand(CMD_QUERY_EXECUTE);
+                    DTE.ExecuteCommand(CMD_QUERY_EXECUTE);
                 }
             }
             catch (Exception ex)
@@ -92,13 +96,9 @@ namespace SQLScriptsExplorer.Addin.Infrastructure
         {
             try
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
-
-                DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
-
-                if (dte.ActiveDocument != null)
+                if (DTE.ActiveDocument != null)
                 {
-                    TextSelection selection = (TextSelection)dte.ActiveDocument.Selection;
+                    TextSelection selection = (TextSelection)DTE.ActiveDocument.Selection;
 
                     // Format whole text: selection.SelectAll();
                     string selectedText = selection.Text;
@@ -150,7 +150,15 @@ namespace SQLScriptsExplorer.Addin.Infrastructure
 
         private static Tuple<TSqlParser, SqlScriptGenerator> GetSQLParser(string targetVersion)
         {
-            if (targetVersion == "SQL Server 2019")
+            if (targetVersion == "SQL Server 2025")
+            {
+                return new Tuple<TSqlParser, SqlScriptGenerator>(new TSql170Parser(false), new Sql170ScriptGenerator());
+            }
+            else if (targetVersion == "SQL Server 2022")
+            {
+                return new Tuple<TSqlParser, SqlScriptGenerator>(new TSql160Parser(false), new Sql160ScriptGenerator());
+            }
+            else if (targetVersion == "SQL Server 2019")
             {
                 return new Tuple<TSqlParser, SqlScriptGenerator>(new TSql150Parser(false), new Sql150ScriptGenerator());
             }

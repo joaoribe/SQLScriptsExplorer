@@ -238,7 +238,7 @@ namespace SQLScriptsExplorer.Addin.Controls
 
                     if (messageBoxResult == MessageBoxResult.Yes)
                     {
-                        DocumentManager.ExecuteTemplate(treeNode.FileName, treeNode.FileFullPath, settingsRepository.ConfirmScriptExecution);
+                        DocumentManager.ExecuteTemplate(treeNode.FileName, treeNode.FileFullPath);
                     }
                 }
                 catch (Exception ex)
