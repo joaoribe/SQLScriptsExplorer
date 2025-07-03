@@ -1,9 +1,7 @@
 ﻿using EnvDTE;
+using EnvDTE80;
 using Microsoft.SqlServer.TransactSql.ScriptDom;
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 using SQLScriptsExplorer.Addin.Repository;
 using SQLScriptsExplorer.Addin.Repository.Interfaces;
 using System;
@@ -15,41 +13,40 @@ namespace SQLScriptsExplorer.Addin.Infrastructure
 {
     public static class DocumentManager
     {
+        private static DTE2 DTE      
+        {
+            get
+            {
+                ThreadHelper.ThrowIfNotOnUIThread();
+                return Package.GetGlobalService(typeof(DTE)) as DTE2;
+            }
+        }
+
         public static void OpenTemplate(string fileName, string fileFullPath)
         {
             try
             {
-                // TODO: This needs to open in a new window, not edit the current one.
                 ThreadHelper.ThrowIfNotOnUIThread();
 
-                if (!File.Exists(fileFullPath))
+                if (File.Exists(fileFullPath))
                 {
-                    throw new FileNotFoundException($"File {fileFullPath} doesn't exist!");
+                    string fileContent = File.ReadAllText(fileFullPath);
+                    var docName = Path.GetFileNameWithoutExtension(fileName);
+                    var docExtension = Path.GetExtension(fileName);
+
+                    var fileDocument = DTE.ItemOperations.NewFile(@"General\Text File", $"{docName}_Copy.{docExtension}").Document;
+
+                    TextSelection textSelection = fileDocument.Selection as TextSelection;
+                    textSelection.SelectAll();
+                    textSelection.Text = string.Empty;
+                    textSelection.Insert(fileContent);
+                    textSelection.StartOfDocument();
+
+                    fileDocument.Save();
                 }
-
-                var openDoc = Package.GetGlobalService(typeof(SVsUIShellOpenDocument)) as IVsUIShellOpenDocument;
-                if (openDoc == null)
+                else
                 {
-                    throw new InvalidOperationException("Could not get OpenDocument service.");
-                }
-
-                Guid logicalView = VSConstants.LOGVIEWID_Primary;
-                IVsUIHierarchy hierarchy;
-                uint itemId;
-                IVsWindowFrame windowFrame;
-                Microsoft.VisualStudio.OLE.Interop.IServiceProvider docServiceProvider;
-
-                int hr = openDoc.OpenDocumentViaProject(
-                    fileFullPath,
-                    ref logicalView,
-                    out docServiceProvider,
-                    out hierarchy,
-                    out itemId,
-                    out windowFrame);
-
-                if (ErrorHandler.Succeeded(hr) && windowFrame != null)
-                {
-                    windowFrame.Show();
+                    throw new Exception($"File {fileFullPath} doesn't exist!");
                 }
             }
             catch (Exception ex)
@@ -62,36 +59,13 @@ namespace SQLScriptsExplorer.Addin.Infrastructure
         {
             try
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
-
-                if (!File.Exists(fileFullPath))
+                if (File.Exists(fileFullPath))
                 {
-                    throw new FileNotFoundException($"File {fileFullPath} doesn't exist!");
+                    DTE.ItemOperations.OpenFile(fileFullPath);
                 }
-
-                var openDoc = Package.GetGlobalService(typeof(SVsUIShellOpenDocument)) as IVsUIShellOpenDocument;
-                if (openDoc == null)
+                else
                 {
-                    throw new InvalidOperationException("Could not get OpenDocument service.");
-                }
-
-                Guid logicalView = VSConstants.LOGVIEWID_Primary;
-                IVsUIHierarchy hierarchy;
-                uint itemId;
-                IVsWindowFrame windowFrame;
-                Microsoft.VisualStudio.OLE.Interop.IServiceProvider docServiceProvider;
-
-                int hr = openDoc.OpenDocumentViaProject(
-                    fileFullPath,
-                    ref logicalView,
-                    out docServiceProvider,
-                    out hierarchy,
-                    out itemId,
-                    out windowFrame);
-
-                if (ErrorHandler.Succeeded(hr) && windowFrame != null)
-                {
-                    windowFrame.Show();
+                    throw new Exception($"File {fileFullPath} doesn't exist!");
                 }
             }
             catch (Exception ex)
@@ -102,64 +76,14 @@ namespace SQLScriptsExplorer.Addin.Infrastructure
 
         public static void ExecuteTemplate(string fileName, string fileFullPath)
         {
-            // TODO: This is opening the document, however it's not executing the query (automatically removing the first line instead).
+            string CMD_QUERY_EXECUTE = "Query.Execute";
 
             try
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
-
-                if (!File.Exists(fileFullPath))
+                // Ensure the document we are executing is the document we have opened by checking its name
+                if (DTE.ActiveDocument != null && DTE.ActiveDocument.ProjectItem.Name.Equals(fileName))
                 {
-                    throw new FileNotFoundException($"File {fileFullPath} doesn't exist!");
-                }
-
-                var openDoc = Package.GetGlobalService(typeof(SVsUIShellOpenDocument)) as IVsUIShellOpenDocument;
-                if (openDoc == null)
-                {
-                    throw new InvalidOperationException("Could not get OpenDocument service.");
-                }
-
-                Guid logicalView = VSConstants.LOGVIEWID_Primary;
-                IVsUIHierarchy hierarchy;
-                uint itemId;
-                IVsWindowFrame windowFrame;
-                Microsoft.VisualStudio.OLE.Interop.IServiceProvider docServiceProvider;
-
-                int hr = openDoc.OpenDocumentViaProject(
-                    fileFullPath,
-                    ref logicalView,
-                    out docServiceProvider,
-                    out hierarchy,
-                    out itemId,
-                    out windowFrame);
-
-                if (ErrorHandler.Succeeded(hr) && windowFrame != null)
-                {
-                    windowFrame.Show();
-
-                    // Now, get the command interface from the window frame
-                    var commandTarget = GetCommandTarget(windowFrame);
-                    if (commandTarget != null)
-                    {
-                        // Execute the Query.Execute command
-                        Guid cmdGroup = new Guid("5EFC7975-14BC-11CF-9B2B-00AA00573819");
-                        uint cmdId = 16; // Command ID for Query.Execute in SSMS
-
-                        commandTarget.Exec(
-                            ref cmdGroup,
-                            cmdId,
-                            (uint)OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER,
-                            IntPtr.Zero,
-                            IntPtr.Zero);
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException("Could not get command target to execute the query.");
-                    }
-                }
-                else
-                {
-                    throw new InvalidOperationException($"Failed to open document: {fileFullPath}");
+                    DTE.ExecuteCommand(CMD_QUERY_EXECUTE);
                 }
             }
             catch (Exception ex)
@@ -168,29 +92,13 @@ namespace SQLScriptsExplorer.Addin.Infrastructure
             }
         }
 
-        private static IOleCommandTarget GetCommandTarget(IVsWindowFrame windowFrame)
-        {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
-            object docView;
-            if (ErrorHandler.Succeeded(windowFrame.GetProperty((int)__VSFPROPID.VSFPROPID_DocView, out docView)) && docView != null)
-            {
-                return docView as IOleCommandTarget;
-            }
-            return null;
-        }
-
         public static void FormatSelection()
         {
             try
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
-
-                DTE dte = Package.GetGlobalService(typeof(DTE)) as DTE;
-
-                if (dte.ActiveDocument != null)
+                if (DTE.ActiveDocument != null)
                 {
-                    TextSelection selection = (TextSelection)dte.ActiveDocument.Selection;
+                    TextSelection selection = (TextSelection)DTE.ActiveDocument.Selection;
 
                     // Format whole text: selection.SelectAll();
                     string selectedText = selection.Text;
@@ -242,7 +150,15 @@ namespace SQLScriptsExplorer.Addin.Infrastructure
 
         private static Tuple<TSqlParser, SqlScriptGenerator> GetSQLParser(string targetVersion)
         {
-            if (targetVersion == "SQL Server 2019")
+            if (targetVersion == "SQL Server 2025")
+            {
+                return new Tuple<TSqlParser, SqlScriptGenerator>(new TSql170Parser(false), new Sql170ScriptGenerator());
+            }
+            else if (targetVersion == "SQL Server 2022")
+            {
+                return new Tuple<TSqlParser, SqlScriptGenerator>(new TSql160Parser(false), new Sql160ScriptGenerator());
+            }
+            else if (targetVersion == "SQL Server 2019")
             {
                 return new Tuple<TSqlParser, SqlScriptGenerator>(new TSql150Parser(false), new Sql150ScriptGenerator());
             }
