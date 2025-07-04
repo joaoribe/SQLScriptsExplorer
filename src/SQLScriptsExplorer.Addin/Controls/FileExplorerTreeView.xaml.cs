@@ -7,6 +7,7 @@ using SQLScriptsExplorer.Addin.Repository;
 using SQLScriptsExplorer.Addin.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -487,6 +488,11 @@ namespace SQLScriptsExplorer.Addin.Controls
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        public void SetThemeColor(SolidColorBrush background, SolidColorBrush foreground)
+        {
+            TreeViewMain.Background = background;
+            TreeViewMain.Foreground = foreground;
         }
     }
 }

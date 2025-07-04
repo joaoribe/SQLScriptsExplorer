@@ -12,6 +12,7 @@ namespace SQLScriptsExplorer.Addin.Repository.Interfaces
         bool ExpandMappedFoldersOnLoad { get; set; }
         bool ShowExecuteFileButton { get; set; }
         bool ConfirmScriptExecution { get; set; }
+        Theme Theme { get; set; }
 
         ScriptFileDoubleClickBehaviour ScriptFileDoubleClickBehaviour { get; set; }
 
