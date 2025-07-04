@@ -62,6 +62,7 @@
     </Compile>
     <Compile Include="Infrastructure\Helpers\PathHelper.cs" />
     <Compile Include="Models\Enums\ScriptFileDoubleClickBehaviour.cs" />
+    <Compile Include="Models\Enums\Theme.cs" />
     <Compile Include="Repository\Interfaces\ISettingsRepository.cs" />
     <Compile Include="Repository\SettingsRepository.cs" />
     <Compile Include="Styling\Converter\SortableConverter.cs" />

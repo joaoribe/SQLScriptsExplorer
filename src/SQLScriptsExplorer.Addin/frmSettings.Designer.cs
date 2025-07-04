@@ -60,6 +60,8 @@ namespace SQLScriptsExplorer.Addin
             this.lblFileDoubleClickBehaviour = new System.Windows.Forms.Label();
             this.lblSeparator3 = new System.Windows.Forms.Label();
             this.tbpGeneral = new System.Windows.Forms.TabPage();
+            this.cboTheme = new System.Windows.Forms.ComboBox();
+            this.lblTheme = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gdvFolderMapping)).BeginInit();
             this.tbcMain.SuspendLayout();
             this.tbpFolderMapping.SuspendLayout();
@@ -357,6 +359,8 @@ namespace SQLScriptsExplorer.Addin
             // 
             // tbpGeneral
             // 
+            this.tbpGeneral.Controls.Add(this.cboTheme);
+            this.tbpGeneral.Controls.Add(this.lblTheme);
             this.tbpGeneral.Controls.Add(this.lblGeneralSettings);
             this.tbpGeneral.Controls.Add(this.txtAllowedFileTypes);
             this.tbpGeneral.Controls.Add(this.cboParserVersion);
@@ -370,6 +374,27 @@ namespace SQLScriptsExplorer.Addin
             this.tbpGeneral.TabIndex = 2;
             this.tbpGeneral.Text = "General";
             this.tbpGeneral.UseVisualStyleBackColor = true;
+            // 
+            // cboTheme
+            // 
+            this.cboTheme.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboTheme.FormattingEnabled = true;
+            this.cboTheme.Items.AddRange(new object[] {
+            "Light",
+            "Dark"});
+            this.cboTheme.Location = new System.Drawing.Point(151, 97);
+            this.cboTheme.Name = "cboTheme";
+            this.cboTheme.Size = new System.Drawing.Size(212, 21);
+            this.cboTheme.TabIndex = 7;
+            // 
+            // lblTheme
+            // 
+            this.lblTheme.AutoSize = true;
+            this.lblTheme.Location = new System.Drawing.Point(46, 100);
+            this.lblTheme.Name = "lblTheme";
+            this.lblTheme.Size = new System.Drawing.Size(40, 13);
+            this.lblTheme.TabIndex = 6;
+            this.lblTheme.Text = "Theme";
             // 
             // frmSettings
             // 
@@ -430,5 +455,7 @@ namespace SQLScriptsExplorer.Addin
         private System.Windows.Forms.Label lblSeparator3;
         internal System.Windows.Forms.Label lblFileDoubleClick;
         private System.Windows.Forms.Label label2;
+        internal System.Windows.Forms.ComboBox cboTheme;
+        internal System.Windows.Forms.Label lblTheme;
     }
 }

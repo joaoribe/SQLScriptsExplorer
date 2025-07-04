@@ -41,6 +41,7 @@ namespace SQLScriptsExplorer.Addin
             // General
             cboParserVersion.SelectedItem = settingsRepository.SQLParserVersion;
             txtAllowedFileTypes.Text = settingsRepository.AllowedFileTypes;
+            cboTheme.SelectedIndex = settingsRepository.Theme == Theme.Light ? 0 : 1;
         }
 
         private void btnSave_Click(object sender, System.EventArgs e)
@@ -60,6 +61,8 @@ namespace SQLScriptsExplorer.Addin
             // General
             settingsRepository.SQLParserVersion = cboParserVersion.SelectedItem.ToString();
             settingsRepository.AllowedFileTypes = txtAllowedFileTypes.Text;
+            settingsRepository.Theme = cboTheme.SelectedItem.ToString() == Theme.Light.ToString() ?
+                Theme.Light : Theme.Dark;
 
             settingsRepository.Save();
 

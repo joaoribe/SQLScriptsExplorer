@@ -1,6 +1,7 @@
 ﻿using SQLScriptsExplorer.Addin.Infrastructure;
 using SQLScriptsExplorer.Addin.Infrastructure.Helpers;
 using SQLScriptsExplorer.Addin.Models;
+using SQLScriptsExplorer.Addin.Models.Enums;
 using SQLScriptsExplorer.Addin.Repository;
 using SQLScriptsExplorer.Addin.Repository.Interfaces;
 using System;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace SQLScriptsExplorer.Addin.Commands.ToolWindow
@@ -46,6 +48,7 @@ namespace SQLScriptsExplorer.Addin.Commands.ToolWindow
             searchTimer.Tick += SearchTimer_Tick;
 
             RefreshTreeView();
+            SetTheme();
         }
 
         private void btnFormatSelection_Click(object sender, RoutedEventArgs e)
@@ -81,6 +84,7 @@ namespace SQLScriptsExplorer.Addin.Commands.ToolWindow
             if (frmSettingsResult == System.Windows.Forms.DialogResult.OK)
             {
                 RefreshTreeView();
+                SetTheme();
             }
         }
 
@@ -232,7 +236,26 @@ namespace SQLScriptsExplorer.Addin.Commands.ToolWindow
         }
 
         #region UI
-
+        void SetTheme()
+        {
+            bool isLightTheme = settingsRepository.Theme == Theme.Light;
+            SolidColorBrush darkBackground = new SolidColorBrush(Color.FromRgb(31, 31, 31));
+            SolidColorBrush lightBackground = new SolidColorBrush(Color.FromRgb(238, 245, 253));
+            SolidColorBrush lightBackground2 = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+            SolidColorBrush darkForeground = new SolidColorBrush(Color.FromRgb(219, 219, 250));
+            SolidColorBrush lightForeground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+            mainToolBarTray.Background = isLightTheme ? lightBackground : darkBackground;
+            mainToolBar.Background = isLightTheme ? lightBackground : darkBackground;
+            txtSearch.Background = isLightTheme ? lightBackground2 : darkBackground;
+            txtSearch.Foreground = isLightTheme ? lightForeground : darkForeground;
+            lblSearch.Foreground = isLightTheme ? lightForeground : darkForeground;
+            FileExplorerAll.SetThemeColor(
+                isLightTheme ? lightBackground2 : darkBackground,
+                isLightTheme ? lightForeground : darkForeground);
+            FileExplorerSearchResults.SetThemeColor(
+                isLightTheme ? lightBackground2 : darkBackground,
+                isLightTheme ? lightForeground : darkForeground);
+        }
         private void ToolBar_Loaded(object sender, RoutedEventArgs e)
         {
             ToolBar toolBar = sender as ToolBar;
