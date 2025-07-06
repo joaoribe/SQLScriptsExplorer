@@ -26,6 +26,7 @@
 	<li><a href="#known-issues">Known Issues</a>
 		<ul>
 			<li><a href="#extension-does-not-load">Extension does not Load</a></li>
+			<li><a href="#theme-not-being-applied-or-refreshed">Theme not being applied or refreshed</a></li>
 			<li><a href="#docking-issue">Docking Issue</a></li>
 		</ul>
 	</li>
@@ -128,7 +129,7 @@
 <p>Sometimes when you download the release zip file, Windows blocks it for security reasons. If you get an error after the plugin installation or the plugin does not appear in Microsoft SQL Server Management Studio 18, ensure the release ZIP file you have downloaded is unblocked.</p>
 <img src="docs/images/UnblockFile.png"/>
 
-<h2>Theme not being applied / refreshed</h2>
+<h2>Theme not being applied or refreshed</h2>
 <p>Unfortunately the plugin does not inherit the Theme from SSMS, therefore you can only select it manually from the Settings form.</p>
 <p>A limitation of the functionality is that you need to re-open SSMS for it to load with the correct theme.</p>
 <img src="docs/images/Themes.png"/>
