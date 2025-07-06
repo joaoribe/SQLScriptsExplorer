@@ -17,7 +17,6 @@ namespace SQLScriptsExplorer.Addin.Repository
         private const string SHOW_EXECUTEFILE_BUTTON = "ShowExecuteFileButton";
         private const string CONFIRM_SCRIPT_EXECUTION = "ConfirmScriptExecution";
         private const string SCRIPT_FILE_DOUBLE_CLICK_BEHAVIOUR = "ScriptFileDoubleClickBehaviour";
-        private const string THEME = "Theme";
 
         public List<FolderMapping> FolderMapping { get; set; }
 
@@ -30,7 +29,6 @@ namespace SQLScriptsExplorer.Addin.Repository
         public bool ShowExecuteFileButton { get; set; }
 
         public bool ConfirmScriptExecution { get; set; }
-        public Theme Theme { get; set; }
 
         public ScriptFileDoubleClickBehaviour ScriptFileDoubleClickBehaviour { get; set; }
 
@@ -57,7 +55,6 @@ namespace SQLScriptsExplorer.Addin.Repository
             RegistryManager.SaveRegisterValue(SHOW_EXECUTEFILE_BUTTON, ShowExecuteFileButton.ToString());
             RegistryManager.SaveRegisterValue(CONFIRM_SCRIPT_EXECUTION, ConfirmScriptExecution.ToString());
             RegistryManager.SaveRegisterValue(SCRIPT_FILE_DOUBLE_CLICK_BEHAVIOUR, $"{(int)ScriptFileDoubleClickBehaviour}");
-            RegistryManager.SaveRegisterValue(THEME, ((int)Theme).ToString());
         }
 
         private void LoadFolderMapping()
@@ -135,13 +132,6 @@ namespace SQLScriptsExplorer.Addin.Repository
             {
                 AllowedFileTypes = "*.sql";
             }
-
-            // Theme
-            var themeValue = RegistryManager.GetRegisterValue(THEME);
-            if (string.IsNullOrEmpty(themeValue))
-                Theme = Theme.Light;
-            else
-                Theme = (Theme)int.Parse(themeValue);
         }
     }
 }

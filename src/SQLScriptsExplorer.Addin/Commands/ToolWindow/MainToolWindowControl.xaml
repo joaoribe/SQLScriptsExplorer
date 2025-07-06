@@ -5,12 +5,12 @@
     xmlns:Controls="clr-namespace:SQLScriptsExplorer.Addin.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
     xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
     x:Name="MyToolWindow"
     d:DesignHeight="300"
     d:DesignWidth="300"
-    Background="{DynamicResource {x:Static vsshell:VsBrushes.WindowKey}}"
-    Foreground="{DynamicResource {x:Static vsshell:VsBrushes.WindowTextKey}}"
+    toolkit:Themes.UseVsTheme="True"
     mc:Ignorable="d">
     <Grid Margin="0,0,0,0">
         <Grid.RowDefinitions>

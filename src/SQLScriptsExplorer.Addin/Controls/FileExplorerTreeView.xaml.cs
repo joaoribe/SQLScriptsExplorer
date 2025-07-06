@@ -489,10 +489,5 @@ namespace SQLScriptsExplorer.Addin.Controls
                 MessageBox.Show(ex.Message);
             }
         }
-        public void SetThemeColor(SolidColorBrush background, SolidColorBrush foreground)
-        {
-            TreeViewMain.Background = background;
-            TreeViewMain.Foreground = foreground;
-        }
     }
 }
