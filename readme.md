@@ -83,6 +83,10 @@
 <p>Use <i>Format Selection</i> button to format SQL statements.</p>
 <img src="docs/images/FormatSelection.gif"/>
 
+<h2>Theme Selection</h2>
+<p>Select a Theme that is most comfortable for you.</p>
+<img src="docs/images/Themes.png"/>
+
 <!-- CONTRIBUTING -->
 <h1>Contributing</h1>
 <p>Feel free to report an issue or suggest a feature. If you would like to introduce a functionality or fix an issue, please create a pull request.</p>
@@ -123,6 +127,11 @@
 <h2>Extension does not Load</h2>
 <p>Sometimes when you download the release zip file, Windows blocks it for security reasons. If you get an error after the plugin installation or the plugin does not appear in Microsoft SQL Server Management Studio 18, ensure the release ZIP file you have downloaded is unblocked.</p>
 <img src="docs/images/UnblockFile.png"/>
+
+<h2>Theme not being applied / refreshed</h2>
+<p>Unfortunately the plugin does not inherit the Theme from SSMS, therefore you can only select it manually from the Settings form.</p>
+<p>A limitation of the functionality is that you need to re-open SSMS for it to load with the correct theme.</p>
+<img src="docs/images/Themes.png"/>
 
 <h2>Docking Issue</h2>
 <p><b>Note:</b> Issue is related to Windows and .NET Framework, not the addin.</p>
