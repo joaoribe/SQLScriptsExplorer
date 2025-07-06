@@ -1,24 +1,35 @@
 ﻿<UserControl
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
-             xmlns:Controls="clr-namespace:SQLScriptsExplorer.Addin.Controls" x:Class="SQLScriptsExplorer.Addin.Commands.ToolWindow.MainToolWindowControl"
-             Background="{DynamicResource {x:Static vsshell:VsBrushes.WindowKey}}"
-             Foreground="{DynamicResource {x:Static vsshell:VsBrushes.WindowTextKey}}"
-             mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300" 
-             x:Name="MyToolWindow">
+    x:Class="SQLScriptsExplorer.Addin.Commands.ToolWindow.MainToolWindowControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:SQLScriptsExplorer.Addin.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
+    x:Name="MyToolWindow"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    Background="{DynamicResource {x:Static vsshell:VsBrushes.WindowKey}}"
+    Foreground="{DynamicResource {x:Static vsshell:VsBrushes.WindowTextKey}}"
+    mc:Ignorable="d">
     <Grid Margin="0,0,0,0">
-
-        <DockPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
             <StackPanel>
-                <ToolBarTray DockPanel.Dock="Top" IsLocked="True">
-                    <ToolBar Loaded="ToolBar_Loaded" BorderThickness="0">
+                <ToolBarTray
+                    x:Name="mainToolBarTray"
+                    DockPanel.Dock="Top"
+                    IsLocked="True">
+                    <ToolBar
+                        x:Name="mainToolBar"
+                        BorderThickness="0"
+                        Loaded="ToolBar_Loaded">
                         <Button Click="btnFormatSelection_Click" ToolTip="Format Selection">
                             <StackPanel>
-                                <Image Source="../../Resources/Images/FormatScript.png" Width="16" />
+                                <Image Width="16" Source="../../Resources/Images/FormatScript.png" />
                             </StackPanel>
                         </Button>
 
@@ -26,13 +37,13 @@
 
                         <Button Click="btnExpandAll_Click" ToolTip="Expand All">
                             <StackPanel>
-                                <Image Source="../../Resources/Images/ExpandAll.png" Width="16" />
+                                <Image Width="16" Source="../../Resources/Images/ExpandAll.png" />
                             </StackPanel>
                         </Button>
-                        
+
                         <Button Click="btnCollapseAll_Click" ToolTip="Collapse All">
                             <StackPanel>
-                                <Image Source="../../Resources/Images/CollapseAll.png" Width="16" />
+                                <Image Width="16" Source="../../Resources/Images/CollapseAll.png" />
                             </StackPanel>
                         </Button>
 
@@ -40,44 +51,68 @@
 
                         <Button Click="btnRefresh_Click" ToolTip="Refresh">
                             <StackPanel>
-                                <Image Source="../../Resources/Images/Refresh.png" Width="16"/>
+                                <Image Width="16" Source="../../Resources/Images/Refresh.png" />
                             </StackPanel>
                         </Button>
                         <Button Click="btnSettings_Click" ToolTip="Settings">
                             <StackPanel>
-                                <Image Source="../../Resources/Images/Settings.png" Width="16"/>
+                                <Image Width="16" Source="../../Resources/Images/Settings.png" />
                             </StackPanel>
                         </Button>
                     </ToolBar>
                 </ToolBarTray>
-                <TextBox x:Name="txtSearch" Height="21" Padding="3,2,3,2" KeyUp="txtSearch_KeyUp" />
-                <TextBlock IsHitTestVisible="False" Text="Search SQL Scripts Explorer..." VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,-23,0,0" Padding="6,2,0,0" Foreground="DarkGray">
-                    <TextBlock.Style>
-                        <Style TargetType="{x:Type TextBlock}">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Text, ElementName=txtSearch}" Value="">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox
+                        x:Name="txtSearch"
+                        Grid.Column="0"
+                        Height="21"
+                        Padding="3,2,3,2"
+                        KeyUp="txtSearch_KeyUp" />
+                    <TextBlock
+                        x:Name="lblSearch"
+                        Grid.Column="0"
+                        Margin="5,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        IsHitTestVisible="False"
+                        Text="Search SQL Scripts Explorer...">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=txtSearch}" Value="">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
             </StackPanel>
         </DockPanel>
 
-        <Controls:FileExplorerTreeView x:Name="FileExplorerAll" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,48,0,0"/>
-        <Controls:FileExplorerTreeView x:Name="FileExplorerSearchResults" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,48,0,0" Visibility="Collapsed"
-                                       TreeNodeAdded="FileExplorerSearchResults_TreeNodeAdded" 
-                                       TreeNodeDeleted="FileExplorerSearchResults_TreeNodeDeleted"
-                                       TreeNodeRenamed="FileExplorerSearchResults_TreeNodeRenamed"/>
+        <Controls:FileExplorerTreeView
+            x:Name="FileExplorerAll"
+            Grid.Row="1"
+            Margin="0,0,0,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch" />
+        <Controls:FileExplorerTreeView
+            x:Name="FileExplorerSearchResults"
+            Grid.Row="1"
+            Margin="0,0,0,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            TreeNodeAdded="FileExplorerSearchResults_TreeNodeAdded"
+            TreeNodeDeleted="FileExplorerSearchResults_TreeNodeDeleted"
+            TreeNodeRenamed="FileExplorerSearchResults_TreeNodeRenamed"
+            Visibility="Collapsed" />
 
-        <StackPanel Orientation="Vertical" Margin="0,150,0,0">
-            <!--<StackPanel Orientation="Horizontal">-->
-            <!--</StackPanel>-->
-        </StackPanel>
-
-        <!-- Info on double click: https://stackoverflow.com/questions/4295897/wpf-double-click-treeviewitem-child-node -->
+        <!--  Info on double click: https://stackoverflow.com/questions/4295897/wpf-double-click-treeviewitem-child-node  -->
 
 
 
