@@ -21,10 +21,12 @@
             <StackPanel>
                 <ToolBarTray
                     x:Name="mainToolBarTray"
+                    Background="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                     DockPanel.Dock="Top"
                     IsLocked="True">
                     <ToolBar
                         x:Name="mainToolBar"
+                        Background="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                         BorderThickness="0"
                         Loaded="ToolBar_Loaded">
                         <Button Click="btnFormatSelection_Click" ToolTip="Format Selection">
