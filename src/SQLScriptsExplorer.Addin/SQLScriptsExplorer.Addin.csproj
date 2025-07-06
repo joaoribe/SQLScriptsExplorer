@@ -62,7 +62,6 @@
     </Compile>
     <Compile Include="Infrastructure\Helpers\PathHelper.cs" />
     <Compile Include="Models\Enums\ScriptFileDoubleClickBehaviour.cs" />
-    <Compile Include="Models\Enums\Theme.cs" />
     <Compile Include="Repository\Interfaces\ISettingsRepository.cs" />
     <Compile Include="Repository\SettingsRepository.cs" />
     <Compile Include="Styling\Converter\SortableConverter.cs" />
@@ -130,6 +129,9 @@
     <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="16.9.1050" />
   </ItemGroup>-->
   <ItemGroup>
+    <PackageReference Include="Community.VisualStudio.Toolkit.17">
+      <Version>17.0.533</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.SqlServer.TransactSql.ScriptDom">
       <Version>170.64.0</Version>
     </PackageReference>

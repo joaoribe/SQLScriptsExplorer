@@ -1,13 +1,20 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.PlatformUI;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
+using DrawingColor = System.Drawing.Color;
 
 namespace SQLScriptsExplorer.Addin.Controls
 {
     public class HighlightTextBlock : TextBlock
     {
+        public HighlightTextBlock()
+        {
+            ApplyThemeColors();
+            VSColorTheme.ThemeChanged += VSColorTheme_Changed;
+        }
         #region Properties
 
         public new string Text
@@ -60,11 +67,32 @@ namespace SQLScriptsExplorer.Addin.Controls
         }
 
         #endregion
-
+        #region Theme
+        void ApplyThemeColors()
+        {
+            DrawingColor foreground = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowTextColorKey);
+            DrawingColor background = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowBackgroundColorKey);
+            Foreground = new SolidColorBrush(Color.FromArgb(foreground.A, foreground.R, foreground.G, foreground.B));
+            Background = new SolidColorBrush(Color.FromArgb(background.A, background.R, background.G, background.B));
+        }
+        void VSColorTheme_Changed(ThemeChangedEventArgs e)
+        {
+            ApplyThemeColors();
+        }
+        protected override void OnVisualParentChanged(DependencyObject oldParent)
+        {
+            base.OnVisualParentChanged(oldParent);
+            if(VisualParent == null)
+            {
+                VSColorTheme.ThemeChanged -= VSColorTheme_Changed;
+            }
+        }
+        #endregion
         #region Members
 
         private static void ApplyHighlight(HighlightTextBlock tb)
         {
+            
             string highlightPhrase = tb.HighlightPhrase;
             string text = tb.Text;
 
