@@ -73,7 +73,8 @@ namespace SQLScriptsExplorer.Addin.Controls
             DrawingColor foreground = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowTextColorKey);
             DrawingColor background = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowBackgroundColorKey);
             Foreground = new SolidColorBrush(Color.FromArgb(foreground.A, foreground.R, foreground.G, foreground.B));
-            Background = new SolidColorBrush(Color.FromArgb(background.A, background.R, background.G, background.B));
+            //Background = new SolidColorBrush(Color.FromArgb(background.A, background.R, background.G, background.B));
+            Background = Brushes.Transparent; // Keep background transparent to allow highlighting to show through
         }
         void VSColorTheme_Changed(ThemeChangedEventArgs e)
         {
