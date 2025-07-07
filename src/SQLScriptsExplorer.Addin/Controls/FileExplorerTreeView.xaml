@@ -39,20 +39,26 @@
                             Height="16"
                             Margin="3,0,5,0"
                             Source="{Binding Icon}" />
-                        <local:HighlightTextBlock
-                            HighlightBrush="Khaki"
-                            HighlightPhrase="{Binding Path=HighlightPhrase, Mode=TwoWay}"
-                            IsCaseSensitive="False"
-                            IsHitTestVisible="False"
-                            Text="{Binding Path=FileName}" />
-                        <TextBox
-                            x:Name="txtRename"
-                            Width="Auto"
-                            HorizontalAlignment="Center"
-                            KeyDown="txtRename_KeyDown"
-                            LostFocus="txtRename_LostFocus"
-                            Text="{Binding FileName, Mode=TwoWay}"
-                            Visibility="Collapsed" />
+                        <Grid>
+                            <local:HighlightTextBlock
+                                Grid.Row="0"
+                                HighlightBrush="Khaki"
+                                HighlightPhrase="{Binding Path=HighlightPhrase, Mode=TwoWay}"
+                                IsCaseSensitive="False"
+                                IsHitTestVisible="False"
+                                Text="{Binding Path=FileName}" />
+                            <TextBox
+                                x:Name="txtRename"
+                                Grid.Row="0"
+                                Width="Auto"
+                                Height="Auto"
+                                Padding="0"
+                                HorizontalAlignment="Center"
+                                KeyDown="txtRename_KeyDown"
+                                LostFocus="txtRename_LostFocus"
+                                Text="{Binding FileName, Mode=TwoWay}"
+                                Visibility="Collapsed" />
+                        </Grid>
                     </StackPanel>
                 </HierarchicalDataTemplate>
 
@@ -257,20 +263,15 @@
                                         <Setter TargetName="PART_Header" Property="MinHeight" Value="19" />
                                     </MultiTrigger>
                                     <Trigger Property="IsSelected" Value="true">
-                                        <Setter TargetName="Bd" Property="Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
-                                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
+                                        <Setter TargetName="Bd" Property="Background" Value="#45b3e0" />
                                     </Trigger>
                                     <MultiTrigger>
                                         <MultiTrigger.Conditions>
                                             <Condition Property="IsSelected" Value="true" />
                                             <Condition Property="IsSelectionActive" Value="false" />
                                         </MultiTrigger.Conditions>
-                                        <Setter TargetName="Bd" Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
-                                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+                                        <Setter TargetName="Bd" Property="Background" Value="#45b3e0" />
                                     </MultiTrigger>
-                                    <Trigger Property="IsEnabled" Value="false">
-                                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
-                                    </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>
