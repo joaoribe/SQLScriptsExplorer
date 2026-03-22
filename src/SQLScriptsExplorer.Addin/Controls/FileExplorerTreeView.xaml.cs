@@ -334,7 +334,7 @@ namespace SQLScriptsExplorer.Addin.Controls
 
             if (!File.Exists(newFilePath))
             {
-                File.Create(newFilePath);
+                using (File.Create(newFilePath)) { }
 
                 var newTreeNode = new TreeNode(newFileName, newFilePath, TreeNodeType.File);
                 newTreeNode.Parent = currentTreeNode;
