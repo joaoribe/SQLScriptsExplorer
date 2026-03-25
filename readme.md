@@ -47,7 +47,7 @@
 		<br/>
 		<img width="322" height="232" alt="image" src="https://github.com/user-attachments/assets/8a03e315-fbfb-4081-9e86-1c014a45fd10" />
 	</li>
-	<h4>DEPRECATED: Version v1.3.2-beta and before</h4>
+	<h4>*** DEPRECATED: Version v1.3.2-beta and before ***</h4>
 	<li>Close all instances of Microsoft SQL Server Management Studio 21 (or prior)</li>
 	<li>Download any <a href="https://github.com/joaoribe/SQLScriptsExplorer/releases">release</a> up until v1.3.2-beta</li>
 	<li>Add release folder <i>SQLScriptsExplorer</i> to
