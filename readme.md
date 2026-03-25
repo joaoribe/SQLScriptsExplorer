@@ -47,7 +47,7 @@
 	</li>
 	<h4>DEPRECATED: Version v1.3.2-beta and before</h4>
 	<li>Close all instances of Microsoft SQL Server Management Studio 21 (or prior)</li>
-	<li>Download any <a href="https://github.com/joaoribe/SQLScriptsExplorer/releases/latest">release</a> up until v1.3.2-beta</li>
+	<li>Download any <a href="https://github.com/joaoribe/SQLScriptsExplorer/releases">release</a> up until v1.3.2-beta</li>
 	<li>Add release folder <i>SQLScriptsExplorer</i> to
 		<br/>
 		<code>C:\Program Files\Microsoft SQL Server Management Studio 21\Release\Common7\IDE\Extensions</code>
