@@ -41,11 +41,16 @@
 </ul>
 <h2>Installation</h2>
 <ul>
-	<li>Close all instances of Microsoft SQL Server Management Studio 22</li>
+	<li>Close all instances of Microsoft SQL Server Management Studio</li>
 	<li>Download the most recent <a href="https://github.com/joaoribe/SQLScriptsExplorer/releases/latest">release</a></li>
+	<li>Execute the <i>SQLScriptsExplorer.Addin.vsix</i> to complete installation
+	</li>
+	<h4>DEPRECATED: Version v1.3.2-beta and before</h4>
+	<li>Close all instances of Microsoft SQL Server Management Studio 21 (or prior)</li>
+	<li>Download any <a href="https://github.com/joaoribe/SQLScriptsExplorer/releases/latest">release</a> up until v1.3.2-beta</li>
 	<li>Add release folder <i>SQLScriptsExplorer</i> to
 		<br/>
-		<code>C:\Program Files\Microsoft SQL Server Management Studio 22\Release\Common7\IDE\Extensions</code>
+		<code>C:\Program Files\Microsoft SQL Server Management Studio 21\Release\Common7\IDE\Extensions</code>
 	</li>
 	<li><b>Note:</b> adjust the extension path based on the SSMS you are using e.g. SSMS 20
 		<br/>
