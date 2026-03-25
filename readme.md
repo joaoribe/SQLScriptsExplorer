@@ -44,6 +44,8 @@
 	<li>Close all instances of Microsoft SQL Server Management Studio</li>
 	<li>Download the most recent <a href="https://github.com/joaoribe/SQLScriptsExplorer/releases/latest">release</a></li>
 	<li>Execute the <i>SQLScriptsExplorer.Addin.vsix</i> to complete installation
+		<br/>
+		<img width="322" height="232" alt="image" src="https://github.com/user-attachments/assets/8a03e315-fbfb-4081-9e86-1c014a45fd10" />
 	</li>
 	<h4>DEPRECATED: Version v1.3.2-beta and before</h4>
 	<li>Close all instances of Microsoft SQL Server Management Studio 21 (or prior)</li>
